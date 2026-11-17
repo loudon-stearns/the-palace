@@ -1,0 +1,37 @@
+---
+title: "Marcus Aurelius — rich — Epictetus, on paper — what is real"
+born: 2026-11-17
+links:
+  - target: "[[Marcus Aurelius]]"
+    type: connects-to
+    label: rich-face-of
+forward_vector: "I keep, whole and in the maker's words, what is real and what is a choice in the piece beside me, so a reader of the face can tell a finding from a decision."
+---
+
+**What is real and what is a choice**
+
+- **Real.** Every date and place drawn comes from `dates-2.json`, and every one there names two sources or more. `make2.py` reads that file and nothing else, and it stops in two cases: a date with fewer than two sources, or a label template carrying digits of its own. So every number printed in the picture is formatted from the data. Sources were read on the web on 2026-11-17:
+  - **Epictetus's life, a fade over the 50s to a fade across 130–140.** For his birth: SEP "sometime in the 50s"; IEP "in about 55"; Wikipedia "around AD 50". For "dies c. 135": SEP "until his death around 135"; IEP's heading "(55–135 C.E.)"; Wikipedia "sometime around AD 135".
+  - **"Taught at Nicopolis, Greece."** SEP: "in Epirus, on the Adriatic coast of northwest Greece". IEP: "Nicopolis in Epirus (in north-western Greece)".
+  - **"A student, Arrian, writes down his lectures, c. 104–108."** IEP: "written some time around the years 104–107", and IEP calls that a conjecture. SEP's "around the year 108 by Millar's (1965) dating" dates the *teaching* the *Discourses* record, not the writing-down. My first version credited SEP with the writing; that was wrong. Wikipedia: Arrian "studied under him as a young man, around 108 AD". The block spans the teaching and the conjectured writing. SEP also reports Dobbin's view that Epictetus may have written the texts himself, with Arrian keeping "a mild fiction of orality". "Writes down" is the traditional account, kept here because Arrian's preface claims it.
+  - **Marcus, 121–180, in Rome.** For 121: SEP, IEP, and Livius ("121 Born in Rome"). For Rome: *Historia Augusta*, Marcus 1.5 ("born at Rome … in a villa on the Caelian Hill") and 1.7 ("reared in the villa where he was born"), and Livius. For 180: Cassius Dio 72.33–34 ("the seventeenth of March"; emperor "nineteen years and eleven days"), SEP, and Livius.
+  - **"At 11, a philosopher's dress", a block 132–133.**
+    - **The Latin** of *Historia Augusta*, Marcus 2.6 (LacusCurtius): "nam duodecimum annum ingressus habitum philosophi sumpsit". "Having entered his twelfth year" means eleven years old. From a birth in April 121 (HA 1.5, "the sixth day before the Kalends of May"), that is April 132 to April 133.
+    - **Magie's English translation**, which I read and followed at first, says "when he was twelve years old". That is loose. I follow the Latin, because the translation's number is the translator's. The challenger caught this, and I read the Latin myself before changing it.
+    - **Wikipedia's "In April 132"**, footnoted to Birley, matches the Latin exactly. That is why my first "twelve" did not fit it.
+    - ***Meditations* 1.6** thanks Diognetus for the plank bed and skin, and gives no age.
+    - **The *Historia Augusta* is late and often unreliable**, so the dress is drawn grey, like the other roughly dated mark, and not red. In the first remake it was red, the only colour on Marcus's line. That made it read as "his philosophy began here", which one late life cannot carry.
+  - **The notes and Rusticus.** *Meditations* 1.7 (Long): Rusticus made him "acquainted with the discourses of Epictetus, which he communicated to me out of his own collection". SEP's Marcus entry, in its exact words, which I misquoted before: "In i.7, Marcus speaks of reading Epictetus' 'hupomnêmata'; Arrian, who wrote down Epictetus' teachings, named them hupomnêmata, apparently in reference to Xenophon's Memorabilia (Greek title: 'hupomnêmata') of Socrates." No source gives the year of the loan.
+- **What the remake drops, and why.** The first version stated "turned to philosophy at twenty-five, 146/147" as fact, and hung its "why" on an eleven-year gap from Epictetus's death. I read the letter whole: Fronto, *Ad M. Caes.* 4.13, at romanletters.org. Marcus gives his age, twenty-five, says he has "as yet drawn into my soul nothing of sound opinions and purer reasonings", and puts Ariston's books aside to go back to his rhetorical work. That is no turning. The 146/7 "turn" is a modern reading of the letter. *Historia Augusta* 2.6 has the philosopher's dress at eleven (in his twelfth year), while Epictetus was alive, and 3.1–3 has him attending Stoic lecturers: Apollonius, Sextus, Rusticus and others. So the eleven-year gap is gone, and so is the red "at 25". The "why" now rests on what holds under either reading: they were in different places, Marcus was never his pupil (SEP: "never in fact his pupil"), and what reached him was notes.
+- **Choices a reader could take for findings:**
+  - **The notes' path is mine.** It is red, because the notes are the claim. It leaves the Arrian block and ends at Marcus's name in the margin, not at a point on his line, because no source gives the year the notes reached him.
+    - It is drawn as a curve so it reads as the notes travelling, not as a line running back along the years. Its tail still crosses the 50–80 stretch on its way to the margin, and that is not a date. "The year is not recorded" sits at its end.
+    - I lean on the shared word as far as SEP does. Marcus's word in 1.7 is the one Arrian gave his record, which makes it likely that the notes Rusticus lent were Arrian's. It is not certain. I did not read the Greek of Arrian's preface myself (Perseus and Wikisource failed to load).
+  - **The column, 121 to 135, reads "both alive, never his pupil".** "Never his pupil" is SEP's ("The emperor Marcus Aurelius was never in fact his pupil"), put in the picture so that "both alive" is not read as "met". Its right edge is drawn sharp at 135 for the shading; Epictetus's death is c. 135, and his line fades across 130–140. "About fourteen years" moves with that date, between roughly nine and nineteen. The column does not mean they could have met, or that they never did. Marcus was a boy in Rome and Epictetus was in Nicopolis. No source I read records a meeting, and none rules one out.
+  - **The dress sits inside the column because that is where its dates fall.** It shows only what one late source says the boy wore while the teacher lived, elsewhere. It does not show that Marcus knew of Epictetus at eleven.
+  - **The frame runs 50–180 CE.** Left out: everything else in Marcus's life, including adoption, the reign, the plague, the wars, Lyon and the *Meditations*. Those were a second story in the first version.
+  - **The fades and blocks are my drawing of uncertainty.** The shading inside them means nothing.
+  - **"Rome" and "Taught at Nicopolis, Greece" are set in full ink** at the size of the names. They carry half of the "why", and in the first remake they were the faintest words.
+- **No house rules are unmet** that I know of. About 1000 px wide at 1:1 (PNG 2000 × 744 at 2x), in the Drafting Table inks. About 50 words in the picture, at 11.5–14.5 px.
+
+**Leaking in:** [[Epictetus]]: "everything we have, the *Discourses* and the little *Enchiridion* (Handbook), is his student Arrian's transcription of his spoken classroom voice". SEP reports Dobbin's doubt about that, so the label says only that Arrian "writes down his lectures".

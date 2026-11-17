@@ -1,0 +1,106 @@
+{
+  "title": "Kokoro — rich",
+  "born": "2026-11-17",
+  "links": [
+    {
+      "target": "[[Kokoro]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Light Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Kokoro's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Kokoro",
+  "tier": "sketch",
+  "made": "2026-11-17",
+  "round": 1,
+  "note": "A light face, from the second light round (2026-11-17): one small thing beside one sentence. Made as if it were the only page: one maker who read the page whole, one challenger who was given nothing of the maker's reasoning, one remake, and a second verdict by the same challenger. Made in Enrichment/light-round-2026-11-2/pieces/Kokoro/, where the script, the job and its provenance stay; placed here by the Concierge, with what made it copied from that provenance and not guessed. Loudon approved the line it was made from (\"Yes, make them\", 2026-11-17, relayed by the working session) and has not seen or heard the finished piece. The section is a proposal until he approves it.",
+  "sections": [
+    {
+      "heading": "Gotchas",
+      "made_against": "ea16d7b06c92",
+      "made": "2026-11-17",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-17",
+        "by": "maker · the Kokoro maker, a dispatched child · second light round; placed by the Concierge",
+        "round": "light-round-2026-11-2"
+      },
+      "challenge": {
+        "date": "2026-11-17",
+        "by": "challenger · second light round, one challenger for this one piece · read-only dispatch; condensed by the working session in Enrichment/light-round-2026-11-2/pieces/Kokoro/challenge.md",
+        "verdicts": [
+          {
+            "file": "Kokoro — rich — two commas, a quiet before K.m4a",
+            "verdict": "remake",
+            "why": "Remake, small: words and picture; the sound and the measurements stand. Every tally reproduced. But \"0 of 40 … 40 of 40\" read like forty independent trials when it is four voices of one sentence, with one voice on the threshold; the picture called the quiet a pause; and its largest box was the quiet after K in the take without commas, the opposite of the page's sentence beside it, unremarked. The challenger's own probe suggested the quiet before K is largely the K's own stop, and it made the May takes exact by re-rendering them."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Kokoro — rich — two commas, a quiet before K.m4a",
+            "date": "2026-11-17",
+            "what": "The sound did not change. The maker tested both of the challenger's findings before remaking: the May takes confirmed and became the second route; the closure reading did not hold in this sentence (ten letters, two sentences, four voices: commas gave a quiet before the letter in 27 of 40 cases against 9). The picture now says \"quiet\", marks the long box as \"in both reads\", and states the evidence as four voices of one sentence with one at the line; the caption claims only K in this sentence. After the second verdict two small fixes were applied by the maker and seen by the working session.",
+            "by": "the Kokoro maker, the same maker",
+            "second_verdict": "keep: The picture reads clearly and its figures match the challenger's own decode of the unchanged m4a; scratch rerun byte-identical. On the closure probe the challenger was wrong in part and says so: a stop like K mostly does not get the quiet and vowel-initial letters mostly do. Only an ear can judge whether 110 ms before K is heard as a pause or a crisper K, and whether the bare K sounds run into anything. Nobody has heard it."
+          },
+          {
+            "file": "Kokoro — rich — two commas, a quiet before K — picture.png",
+            "date": "2026-11-17",
+            "what": "The sound did not change. The maker tested both of the challenger's findings before remaking: the May takes confirmed and became the second route; the closure reading did not hold in this sentence (ten letters, two sentences, four voices: commas gave a quiet before the letter in 27 of 40 cases against 9). The picture now says \"quiet\", marks the long box as \"in both reads\", and states the evidence as four voices of one sentence with one at the line; the caption claims only K in this sentence. After the second verdict two small fixes were applied by the maker and seen by the working session.",
+            "by": "the Kokoro maker, the same maker",
+            "second_verdict": "keep: The picture reads clearly and its figures match the challenger's own decode of the unchanged m4a; scratch rerun byte-identical. On the closure probe the challenger was wrong in part and says so: a stop like K mostly does not get the quiet and vowel-initial letters mostly do. Only an ear can judge whether 110 ms before K is heard as a pause or a crisper K, and whether the bare K sounds run into anything. Nobody has heard it."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Kokoro — rich — two commas, a quiet before K.m4a",
+          "origin": "made",
+          "by": "Kokoro: the sentence bare and with commas, af_heart, af_bella, am_michael, am_adam, torch seeds 1 to 10, speed 1.0, with Kokoro's own word timings → Sound from Code: the quiet-run detector, the survey, the choice of takes, the join → ffmpeg: two-pass loudnorm on the joined file, once; measures on the saved m4a (afconvert writes the AAC) → Drawn SVG: two lanes from the decoded m4a and the word timings, PNG through headless Chrome · bench job two-commas, 2026-11-17, by the Kokoro maker · copied from Enrichment/light-round-2026-11-2/pieces/Kokoro/provenance.json · heard or seen by nobody yet",
+          "title": "Two commas, a quiet before K",
+          "caption": "Press play; the picture beneath says what you are hearing. Nobody has heard it yet: it was checked by measurement only.",
+          "near": "Put commas around a bare variable letter",
+          "place": "band",
+          "made_in": {
+            "workshop": "Enrichment/light-round-2026-11-2/pieces/Kokoro/",
+            "job": "two-commas",
+            "output": "two-commas.m4a",
+            "hash": "d2b150126b9072fa",
+            "commit_at_run": "59e56890"
+          }
+        },
+        {
+          "file": "Kokoro — rich — two commas, a quiet before K — picture.png",
+          "origin": "made",
+          "by": "Kokoro: the two 2026-05-26 paragraphs re-rendered (af_heart, 0.25 s between chunks), and the letter probe (10 letters, 2 sentences, 4 voices, seed 1), with word timings → Sound from Code: the quiet-run detector on the git takes and the probe → Drawn SVG: two-commas-picture-2, from the saved m4a and the survey's word timings · bench job two-commas-remake, 2026-11-17, by the Kokoro maker · copied from Enrichment/light-round-2026-11-2/pieces/Kokoro/provenance.json · heard or seen by nobody yet",
+          "title": "Two commas, a quiet before K · drawn",
+          "caption": "**Punctuation changes how this voice phrases a sentence; here is what two commas did to one.** Kokoro reads \"The coupling constant K is phrasing density and rhythmic clarity.\" first without commas, then as the page writes it, \"…constant, K, is…\".\n\n- **What changed:** with commas, a quiet stretch came before K. In four voices it was there with commas in all four and without commas in none. One voice sits at the line (50 to 60 ms here; 45 ms by the challenger's detector).\n- **What did not:** both reads already had a quiet after K.\n- **The takes reviewed in May show the same:** re-rendered so Kokoro's own word timings lie on them, the take without commas had no quiet before K, and the take with commas had 210 ms there.\n\nThis holds for K in this sentence. With other letters and in another sentence, where the commas' quiet fell varied.\n\nThat the bare K has no quiet before it, and does have one after it, is the maker's measurement; the page says it \"runs into the next word\". Nobody has heard it yet.",
+          "near": "Put commas around a bare variable letter",
+          "place": "band",
+          "made_in": {
+            "workshop": "Enrichment/light-round-2026-11-2/pieces/Kokoro/",
+            "job": "two-commas-remake",
+            "output": "two-commas-picture-2.png",
+            "hash": "9943bea12755ac27",
+            "commit_at_run": "56c9f98f"
+          }
+        },
+        {
+          "file": "Kokoro — rich — two commas, a quiet before K — what is real.md",
+          "origin": "made",
+          "by": "the maker's own lines, whole, from Enrichment/light-round-2026-11-2/pieces/Kokoro/lines.md; workshop-only paragraphs left out; placed by the Concierge",
+          "title": "What is real and what is a choice",
+          "caption": "The maker's account of the piece above: what was measured, what was chosen, and what leaked in from a neighbour.",
+          "near": "Put commas around a bare variable letter",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-17"
+    }
+  ]
+}

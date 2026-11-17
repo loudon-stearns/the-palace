@@ -1,0 +1,83 @@
+{
+  "title": "Marcus Aurelius — rich",
+  "born": "2026-11-17",
+  "links": [
+    {
+      "target": "[[Marcus Aurelius]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Light Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Marcus Aurelius's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Marcus Aurelius",
+  "tier": "sketch",
+  "made": "2026-11-17",
+  "round": 1,
+  "note": "A light face, from the second light round (2026-11-17): one small thing beside one sentence. Made as if it were the only page: one maker who read the page whole, one challenger who was given nothing of the maker's reasoning, one remake, and a second verdict by the same challenger. Made in Enrichment/light-round-2026-11-2/pieces/Marcus Aurelius/, where the script, the job and its provenance stay; placed here by the Concierge, with what made it copied from that provenance and not guessed. Loudon approved the line it was made from (\"Yes, make them\", 2026-11-17, relayed by the working session) and has not seen or heard the finished piece. The section is a proposal until he approves it.",
+  "sections": [
+    {
+      "heading": "The life that shaped the thought",
+      "made_against": "20ce2382dc17",
+      "made": "2026-11-17",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-17",
+        "by": "maker · the Marcus Aurelius maker, light round 2, a dispatched child · second light round; placed by the Concierge",
+        "round": "light-round-2026-11-2"
+      },
+      "challenge": {
+        "date": "2026-11-17",
+        "by": "challenger · second light round, one challenger for this one piece · read-only dispatch; condensed by the working session in Enrichment/light-round-2026-11-2/pieces/Marcus Aurelius/challenge.md",
+        "verdicts": [
+          {
+            "file": "Marcus Aurelius — rich — Epictetus, on paper.png",
+            "verdict": "remake",
+            "why": "Of the first version, which stays in the workshop: the dates were mostly sound and the picture reproduced exactly, but the caption's \"why\" rested on \"turned to philosophy at 25\", drawn as fact in red. The Fronto letter gives his age and says he has drawn in nothing yet; the turn is a modern reading, and a late Roman life has him in a philosopher's dress as a boy, while Epictetus was alive. SEP's 108 dates the teaching, not Arrian's writing-down. About 110 words inside it, and a second story of the reign."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Marcus Aurelius — rich — Epictetus, on paper.png",
+            "date": "2026-11-17",
+            "what": "The maker read the Fronto letter and the Historia Augusta itself before remaking, and made a smaller piece for the one sentence: two lifelines, about fifty words, the turn at 25 and the eleven-year gap gone, the notes' path ending at Marcus's name with \"the year is not recorded\". After the second verdict one fix it required and three choices it offered were applied by the maker and seen by the working session, with no third verdict, as the challenger said none was needed: the age set to 11 from the Latin (\"duodecimum annum ingressus\"), the dress drawn grey, the column labelled \"both alive, never his pupil\", the places in full ink.",
+            "by": "the Marcus Aurelius maker, light round 2, the same maker",
+            "second_verdict": "keep: Keep, with one fix before placing, since made. Scratch rerun byte-identical; the digit guard is real; three SEP quotes, two dates and the Latin for his birth verified by fetching the text. \"At 12\" was wrong against its own primary source: entering his twelfth year is eleven. Not verified by anyone: Birley himself; the Greek of Arrian's preface."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Marcus Aurelius — rich — Epictetus, on paper.png",
+          "origin": "made",
+          "by": "Drawn SVG → hand: make2.py reads dates-2.json only, refuses a date with fewer than two sources or a label carrying its own digits, formats every printed number from the data, draws two lifelines and the undated path of the notes to Marcus's name, and rasterises the PNG at 2x through headless Chrome · bench job met-on-paper-2, 2026-11-17, by the Marcus Aurelius maker, light round 2 · copied from Enrichment/light-round-2026-11-2/pieces/Marcus Aurelius/provenance.json · heard or seen by nobody yet",
+          "title": "Epictetus, on paper",
+          "caption": "Why it was a book. Marcus was never Epictetus's pupil. For about fourteen years both were alive: Marcus a boy in Rome, Epictetus teaching at Nicopolis, in Greece. (A late Roman life says the boy put on a philosopher's dress at eleven.) What reached Marcus of Epictetus was notes of the lectures, the record Arrian called *hypomnemata*, lent to him by his teacher Rusticus. Marcus does not say when.",
+          "near": "He learned his Stoicism from a book",
+          "place": "band",
+          "made_in": {
+            "workshop": "Enrichment/light-round-2026-11-2/pieces/Marcus Aurelius/",
+            "job": "met-on-paper-2",
+            "output": "met-on-paper-2.png",
+            "hash": "a3c52e5e143ea0c5",
+            "commit_at_run": "c4d7141f"
+          }
+        },
+        {
+          "file": "Marcus Aurelius — rich — Epictetus, on paper — what is real.md",
+          "origin": "made",
+          "by": "the maker's own lines, whole, from Enrichment/light-round-2026-11-2/pieces/Marcus Aurelius/lines.md; workshop-only paragraphs left out; placed by the Concierge",
+          "title": "What is real and what is a choice",
+          "caption": "The maker's account of the piece above: what was measured, what was chosen, and what leaked in from a neighbour.",
+          "near": "He learned his Stoicism from a book",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-17"
+    }
+  ]
+}

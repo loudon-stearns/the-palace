@@ -1,0 +1,106 @@
+{
+  "title": "Animate the Background — rich",
+  "born": "2026-11-17",
+  "links": [
+    {
+      "target": "[[Animate the Background]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Light Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Animate the Background's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Animate the Background",
+  "tier": "sketch",
+  "made": "2026-11-17",
+  "round": 1,
+  "note": "A light face, from the second light round (2026-11-17): one small thing beside one sentence. Made as if it were the only page: one maker who read the page whole, one challenger who was given nothing of the maker's reasoning, one remake, and a second verdict by the same challenger. Made in Enrichment/light-round-2026-11-2/pieces/Animate the Background/, where the script, the job and its provenance stay; placed here by the Concierge, with what made it copied from that provenance and not guessed. Loudon approved the line it was made from (\"Yes, make them\", 2026-11-17, relayed by the working session) and has not seen or heard the finished piece. The section is a proposal until he approves it.",
+  "sections": [
+    {
+      "heading": "The four steps",
+      "made_against": "1b8a8bf613f7",
+      "made": "2026-11-17",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-17",
+        "by": "maker · the maker: Animate the Background, a dispatched child · second light round; placed by the Concierge",
+        "round": "light-round-2026-11-2"
+      },
+      "challenge": {
+        "date": "2026-11-17",
+        "by": "challenger · second light round, one challenger for this one piece · read-only dispatch; condensed by the working session in Enrichment/light-round-2026-11-2/pieces/Animate the Background/challenge.md",
+        "verdicts": [
+          {
+            "file": "Animate the Background — rich — the tear at the figure's edge.webp",
+            "verdict": "remake",
+            "why": "Remake the lines only; the WebP stands as made. The picture is true and it helps. One command reproduces the files byte for byte, and the amplitude is the project's own. But the lines said the shot was gone and rebuilt, when its pixels are tracked whole in a proof image; \"nothing was made louder\" is a sound word for a picture; \"clean to the eye\" was unmeasured; and the lines did not say that for about 2.9 s of the 4.5 s loop the two panels look alike, so a reader who glances then sees a ring around nothing."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Animate the Background — rich — the tear at the figure's edge.webp",
+            "date": "2026-11-17",
+            "what": "Lines only; the WebP's hash is unchanged across all three bench runs. The lines now say the shot survives in the project's proof image and that the rebuild equals it on every pixel; the haze on the right is measured; the quiet 43 frames are owned, and the caption says when to look. After the second verdict two record fixes were applied by the maker: where the tear comes from is derived by its own split (about 95% the figure's ink at the peak and 84% over the loop, beside the challenger's 97% and 88%), and those figures now come from a script that stays.",
+            "by": "the maker: Animate the Background, the same maker",
+            "second_verdict": "keep: The picture is unchanged and the haze claim holds by the challenger's own measure over three regions. The challenger's own figure was wrong and the lines now carry both: about 97% of the tear is his ink at the peak frame, about 88% over the loop. Checked and fine: every \"no\", \"only\" and \"same\"; the phone-width limit; the untested list (the Safari app, a real phone, a placed face, the public build)."
+          },
+          {
+            "file": "Animate the Background — rich — the tear at the figure's edge — the peak, held still.png",
+            "date": "2026-11-17",
+            "what": "Lines only; the WebP's hash is unchanged across all three bench runs. The lines now say the shot survives in the project's proof image and that the rebuild equals it on every pixel; the haze on the right is measured; the quiet 43 frames are owned, and the caption says when to look. After the second verdict two record fixes were applied by the maker: where the tear comes from is derived by its own split (about 95% the figure's ink at the peak and 84% over the loop, beside the challenger's 97% and 88%), and those figures now come from a script that stays.",
+            "by": "the maker: Animate the Background, the same maker",
+            "second_verdict": "keep: The picture is unchanged and the haze claim holds by the challenger's own measure over three regions. The challenger's own figure was wrong and the lines now carry both: about 97% of the tear is his ink at the peak frame, about 88% over the loop. Checked and fine: every \"no\", \"only\" and \"same\"; the phone-width limit; the untested list (the Safari app, a real phone, a placed face, the public build)."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Animate the Background — rich — the tear at the figure's edge.webp",
+          "origin": "made",
+          "by": "hand: ink_flames (BLUELINE's own warp, run from this folder by ink_flames_here.py, paths changed only), twice: over the plate and over the un-infilled shot → LaMa: the clean plate, rerun through Shop/LaMa's lama_fill.py on the rebuilt shot with the project's mask (feather > 100, 11 px dilation) → Drawn SVG: overlay.svg (labels, crop box, the ring), rasterised by Playwright's Chromium with a transparent ground → hand: make.py lays the two crops and the thumbnail under the overlay and writes the animated WebP (64 frames, 70 ms, the project's timing) · bench job tear-at-the-edge, 2026-11-17, by the maker: Animate the Background · copied from Enrichment/light-round-2026-11-2/pieces/Animate the Background/provenance.json · heard or seen by nobody yet",
+          "title": "The tear at the figure's edge",
+          "caption": "Skip the infill, and the moving background still holds a copy of the figure. In BLUELINE shot 02, the project's own ink warp (not SVD) drags a grey copy of his head out past his edge. Watch the ring. The copy shows once in each four-and-a-half-second loop, for about a second and a half. Over LaMa's plate, the same warp leaves no copy of him. The authored figure sits crisp on top in both. What tears is the background behind him.",
+          "near": "Skip this and a moving background tears at the figure's edge",
+          "place": "band",
+          "made_in": {
+            "workshop": "Enrichment/light-round-2026-11-2/pieces/Animate the Background/",
+            "job": "tear-at-the-edge",
+            "output": "tear-at-the-edge.webp",
+            "hash": "d24f62ddb3eded9f",
+            "commit_at_run": "56c9f98f"
+          }
+        },
+        {
+          "file": "Animate the Background — rich — the tear at the figure's edge — the peak, held still.png",
+          "origin": "made",
+          "by": "hand: ink_flames (BLUELINE's own warp, run from this folder by ink_flames_here.py, paths changed only), twice: over the plate and over the un-infilled shot → LaMa: the clean plate, rerun through Shop/LaMa's lama_fill.py on the rebuilt shot with the project's mask (feather > 100, 11 px dilation) → Drawn SVG: overlay.svg (labels, crop box, the ring), rasterised by Playwright's Chromium with a transparent ground → hand: make.py lays the two crops and the thumbnail under the overlay and writes the animated WebP (64 frames, 70 ms, the project's timing) · bench job tear-at-the-edge, 2026-11-17, by the maker: Animate the Background · copied from Enrichment/light-round-2026-11-2/pieces/Animate the Background/provenance.json · heard or seen by nobody yet",
+          "title": "The peak, held still",
+          "caption": "Frame 15 of the loop above, held still, for a small screen or a glance that lands in the three seconds of each loop when the two panels look alike. In \"infill skipped\" a grey copy of the figure's head is dragged out past its edge; in \"infill done\" nothing is there. Placed beside the loop by the Concierge; the maker offered it for small screens.",
+          "near": "Skip this and a moving background tears at the figure's edge",
+          "place": "band",
+          "made_in": {
+            "workshop": "Enrichment/light-round-2026-11-2/pieces/Animate the Background/",
+            "job": "tear-at-the-edge",
+            "output": "tear-at-the-edge-still.png",
+            "hash": "32661c76af9f5401",
+            "commit_at_run": "56c9f98f"
+          }
+        },
+        {
+          "file": "Animate the Background — rich — the tear at the figure's edge — what is real.md",
+          "origin": "made",
+          "by": "the maker's own lines, whole, from Enrichment/light-round-2026-11-2/pieces/Animate the Background/lines.md; workshop-only paragraphs left out; placed by the Concierge",
+          "title": "What is real and what is a choice",
+          "caption": "The maker's account of the piece above: what was measured, what was chosen, and what leaked in from a neighbour.",
+          "near": "Skip this and a moving background tears at the figure's edge",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-17"
+    }
+  ]
+}
