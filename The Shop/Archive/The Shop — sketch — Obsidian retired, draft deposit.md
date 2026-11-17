@@ -16,7 +16,9 @@ forward_vector: "I am a draft deposit for Loudon: the palace saying, page by pag
 
 # Obsidian retired — a draft deposit
 
-A draft for Loudon, 2026-11-15. **Nothing here has landed, and no page named below has been changed.** It is the map the [[Deposit Ceremony]] asks for at step 4, plus the words step 5 would show, so that one reading can approve, adjust or cut it. The ceremony itself (the Concierge consulted before the map, a cold read before it lands) has not run; this draft is its input, not its run.
+**Landed 2026-11-15 as `4f475baf`**, on Loudon's approval of the map and his yes to the final words, after a cold read and five fixes; the standing flag and three Weave flags were posted on his yes. Archived the same day. What follows is the draft as it was shown to him, with his answers marked under "Not settled"; where the landed words differ from the proposed ones, the pages are right.
+
+A draft for Loudon, 2026-11-15. **When written, nothing here had landed.** It is the map the [[Deposit Ceremony]] asks for at step 4, plus the words step 5 would show, so that one reading can approve, adjust or cut it. The ceremony itself (the Concierge consulted before the map, a cold read before it lands) has not run; this draft is its input, not its run.
 
 ## The source — his words
 
