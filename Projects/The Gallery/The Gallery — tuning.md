@@ -26,3 +26,13 @@ What The Gallery's steward cycles taught the page, and the changes to the house 
 
 1. Dropbox file dates are last-touched dates: one folder carries a zero 1969 timestamp and Emerson's was touched yesterday, so a folder's median file year is a better first guess than its first-to-last span. *(offered by the steward, cycle 1)*
 - run · 2026-11-03 · cycle 1 · taught item 1
+
+## From cycle 2 — 2026-11-17
+
+2. Many folders share the date 2003-09-08 because a copied third-party waveform library (AKWF) carries it, and copied libraries can also fool the 'made' signal. So before a sweep's folder counts as Loudon's work, check that its date isn't a shared stamp and that its patches aren't a vendor's. *(offered by the steward, cycle 2)*
+3. **Proposed for canon** · 2026-11-17 · `Projects/The Gallery/The Gallery — spec — media store.md` · § Order of building, a new paragraph after the numbered list · canon change owed *(proposed by the steward, cycle 2)*
+   Why: the spec should say what exists so the next builder starts from the tool, not from scratch
+   Path: `Projects/The Gallery/The Gallery — spec — media store.md`
+   > **Built so far (2026-11-17).** A first slice of the tool runs from `Projects/The Gallery/workshop/store/store.mjs`: put, get, check, ls and sweep. The mirror root can be redirected with `STORE_ROOT`, which is how it was tested on a throwaway folder. It reads the dataless flag with `/usr/bin/stat -f %f`, because Node's stat does not expose it. `sweep` rolls up one row per folder by lstat alone, and holds back folders whose names read as money or paperwork. It has not yet touched the real Dropbox/Palace, the resolver does not know it, and `link` is unbuilt. It moves to `_ops/store/` on Loudon's yes.
+
+- run · 2026-11-17 · cycle 2 · taught item 2, proposed item 3 for canon

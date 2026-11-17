@@ -15,32 +15,33 @@ forward_vector: "I am The Gallery's scroll — the one page that always opens on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-03T16:23:37.683Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-17T13:48:38.567Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** seed · **Steward:** cycle 1 · last ran 2026-11-03 (today)
-- **Plan:** agreed 2026-11-03 (today) · 2 made things since
-- **Waiting on you:** nothing
-- **Ready to advance:** 1 answer filed since the steward last ran — a cycle will consume it
-- **Last shipped:** 2026-11-03 (today) — Should tomorrow morning's era-map conversation run from the sketch and my question sheet, or start from your stories? (`the-gallery-steward-003`)
-- **Last commit touching this project:** 2026-11-03 `d0a336e8` — steward(The Gallery): cycle 1 — SPINNING UP. HOME: [[The Gallery]]. Neighborhood loaded.
+- **Status:** active · **Stage:** seed · **Steward:** cycle 2 · last ran 2026-11-17 (today)
+- **Plan:** agreed 2026-11-03 (14 days ago) · 4 made things since
+- **Waiting on you:** 1 open ask
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-11-17 (today) — May I make the store's first real move: one ignored render into Dropbox/Palace, with the tool moved to _ops/store? (`the-gallery-steward-006`)
+- **Last commit touching this project:** 2026-11-11 `cacc58f7` — Weave — 2026-11-11 — quick: 6 links added, 12 links cut, 1 retyped, 2 pages composted, 6 flags closed, 3 carried, 1 declined
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-03 — cycle 1 · taught item 1
+- **Runs:** 2 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-17 — cycle 2 · taught item 2, proposed item 3 for canon
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 1, from cycle 1 — 2026-11-03 — [[The Gallery — tuning]]
+- **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 3, from cycle 2 — 2026-11-17 — [[The Gallery — tuning]]
 
 ### Where this stands
 
-The Gallery is the new project, born this morning, that will hold everything you've made since school: records, courses, papers, instruments, shows. Each work gets a date, a source and a playable copy where one survives, all drawn as one line you can walk, with every work linked to the palace idea it seeded. Your order was: build the system, fill it from what already exists, then interview you and your collaborators. The plan's next step is a one-hour conversation tomorrow morning where you name your eras and ten works you'd hang first. This cycle made something for that conversation to react to: a sketch timeline drawn only from what the Dropbox and the palace already know, and a question…
+The Gallery is the project that will hold everything you've made since school, each work dated and sourced and playable where a copy survives, drawn as one line you can walk. Your order was to build the system, fill it from what already exists, then interview you and your collaborators. The hour-long conversation where you name your eras hasn't happened yet as far as I can see, so I built the parts that don't need you. The first is a working slice of the media store: one tool that moves a file into a mirror of the palace inside Dropbox, records it in a manifest, and checks it later. The second is a sweep that lists every folder in your Dropbox by its file dates without opening a single file…
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `the-gallery-steward-006` — directional_decision · posted 2026-11-17 · options: FIRST-PUT · COPY-ONLY · NOT-YET
 
 ### Answered, not yet consumed
 
-- `the-gallery-steward-003` — GRANTED — option_id=USE-AS-AGENDA; notes: "Loudon, 2026-11-03, relayed by the session: "Use as agenda"." · answered 2026-11-03 — waiting for the next cycle
+_None._
 
 ### Decided
 
@@ -48,11 +49,18 @@ _None — nothing is waiting on you._
 
 ### Runs
 
+- 2026-11-17 — cycle 2 · taught item 2, proposed item 3 for canon
 - 2026-11-03 — cycle 1 · taught item 1
 
 ### Owed
 
 _Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **3.** 2026-11-17 · `Projects/The Gallery/The Gallery — spec — media store.md` · § Order of building, a new paragraph after the numbered list — the spec should say what exists so the next builder starts from the tool, not from scratch
 
 <!-- scroll:now:end -->
 
@@ -83,6 +91,60 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="the-gallery-steward-006" -->
+### 2026-11-17 — cycle 2 — May I make the store's first real move: one ignored render into Dropbox/Palace, with the tool moved to _ops/store?
+> still working · store tested on a scratch folder only · steward leans FIRST-PUT
+
+The Gallery's media store is the place on Dropbox for the audio and video git can't keep. It now works, but only on a throwaway folder. The spec's first real test is to move one existing project's ignored render into a new Dropbox/Palace folder and check it there. That puts a file in your Dropbox and syncs it to the cloud. The move can be undone by moving the file back, but it's the first time a steward writes into your Dropbox, so I'm asking. Some options: FIRST-PUT lets me move one small render and land the tool under _ops/store. COPY-ONLY keeps the original in place for now and puts a copy in the store. NOT-YET leaves your Dropbox untouched while I keep filling the Gallery from the sweep. Either way, I'll keep working on the triage.
+
+**Artifacts:**
+- [the tool that would make the move.](Projects/The Gallery/workshop/store/store.mjs)
+- [what the sweep found, for context.](Projects/The Gallery/workshop/inventory/inventory-map.html)
+- [The Gallery — icon.png](Projects/The Gallery/The Gallery — icon.png)
+- [The Gallery — hero.png](Projects/The Gallery/The Gallery — hero.png)
+- [The Gallery — sketch — timeline.html](Projects/The Gallery/The Gallery — sketch — timeline.html)
+- [sketch-check.png](Projects/The Gallery/workshop/sketch-check.png)
+<sub>`the-gallery-steward-006` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="the-gallery-steward-005" -->
+### 2026-11-17 — cycle 2 — I built the media store's first working tool and swept your Dropbox with it: 338 folders, 68 holding something you made.
+> shipped · store tool runs from my workshop · inventory map drawn · steward leans triage-next
+
+What I built: `store.mjs`, in my workshop for now, with five commands: put, get, check, ls and sweep. I tested put, check and ls on a throwaway folder, never your real Dropbox. A file moved in, its manifest line was written, and check passed. When I changed one byte, check failed with a non-zero exit, so a script can rely on it. The sweep reads only names, sizes and dates. I listed a sample WAV before and after, and it still says 'dataless', so nothing was downloaded. I swept _CLASSES, _PERSONAL, _Reference, WIND, the 2024 Berklee backup and the eight collaborator shares, and it took six seconds. A folder holding a Live, Pro Tools or Logic session or a patch counts as made; 68 do. Audio or video alone counts as media only, because it may be someone else's. 28 folders whose names read as money or paperwork (taxes, expenses, signed agreements, licences) were held back by name. They are counted but never listed, because the public face keeps finances out. What the map shows: your made folders cluster from 2011 on. The years 2005 to 2008 and 2010 have no made folder at their median date, and nothing before 2005 looks like yours yet. Several folders share the date 2003-09-08. That date comes from a copied third-party waveform library (AKWF), so those folders' dates say nothing about you.
+
+**Artifacts:**
+- [the inventory map: 338 folders on one line by file date, with a per-year strip that marks empty years in red. Click a mark for what's inside.](Projects/The Gallery/workshop/inventory/inventory-map.html)
+- [a still of the map, for a quick look.](Projects/The Gallery/workshop/inventory/inventory-map.png)
+- [the sweep itself: one line per folder with file counts by kind, size, and first, median and last dates.](Projects/The Gallery/workshop/inventory/candidates-2026-11-17.jsonl)
+- [puts a new sweep into the map.](Projects/The Gallery/workshop/inventory/build-map.py)
+- [the media store tool, first slice: put, get, check, ls and sweep. The sweep never downloads a file.](Projects/The Gallery/workshop/store/store.mjs)
+
+_Sweep of 2026-11-17, by area (folders one level down)_
+| area | folders | made | media only | papers |
+| --- | --- | --- | --- | --- |
+| _CLASSES | 20 | 9 | 7 | 4 |
+| _PERSONAL | 148 | 31 | 13 | 104 |
+| _Reference | 95 | 0 | 1 | 94 |
+| WIND | 10 | 8 | 0 | 2 |
+| Berklee backup 2024 | 10 | 5 | 3 | 2 |
+| collaborator shares (8) | 55 | 15 | 24 | 16 |
+
+_Proposed for canon:_ Projects/The Gallery/The Gallery — spec — media store.md (§ Order of building, a new paragraph after the numbered list) — the spec should say what exists so the next builder starts from the tool, not from scratch; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ The store has never touched your real Dropbox. The resolver doesn't know about it yet, the public-link command isn't built, and the tool still lives in my workshop instead of _ops/store. The era-map conversation is still unheld.
+
+_Next moves named:_ Triage the 68 made folders into a draft list of works, each with an assumed date, kind and source, and redraw the sketch timeline from it. · Sweep one level deeper into _PERSONAL/_Projects Current, _Projects Archive, Emerson and the two Valen years, where single folders hide many works. · Once you say yes, make the first real move into Dropbox/Palace and teach the resolver to find stored files.
+<sub>`the-gallery-steward-005` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-c3657ffe45" -->
+### 2026-11-17 — cycle 2
+
+taught item 2, proposed item 3 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="the-gallery-steward-003" -->
 ### 2026-11-03 — cycle 1 — Should tomorrow morning's era-map conversation run from the sketch and my question sheet, or start from your stories?
 > still working · sketch and sheet ready · steward leans USE-AS-AGENDA
