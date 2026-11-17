@@ -24,6 +24,8 @@ The 2026-05-28 audit's shortening pass took the page from 441 lines to 146 and k
 
 The vector was written on 2026-04-07 (`1c96439`), before the shortening. It asks for one worked example from each of the four pillars. The shortening took the worked examples from three to two, which is the opposite direction. Nobody has taken up the vector's request in the body since.
 
+A candidate for the Tools example, left by a forage on 2026-11-16 and not in the body: Hadfield-Menell, Dragan, Abbeel & Russell, "Cooperative Inverse Reinforcement Learning" (NeurIPS 2016, arXiv:1606.03137; abstract read). Human and robot are both rewarded by the human's reward function, which the robot does not initially know. Reading that as an intervention at the goal (#3) and not a parameter fix is the forage's own interpretation; neither the paper nor Meadows says it.
+
 ## Links that came and went
 
 - **A weekly-structure page that never existed.** At birth the page applied itself to "4 Pillars Weekly Structure" (`46d904f`). That page was never written, and the Map Log carried it as a forward ghost through April (rows to 2026-04-27, `03faf97`). The audit pointed the link at [[Loudon Live]] `[weekly-cadence]` instead (`1c1b14c`).

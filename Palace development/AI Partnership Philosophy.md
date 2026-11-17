@@ -249,6 +249,7 @@ The same principles that make human collaboration work (curiosity, challenge, mu
   - Progressed (2026-10-24): [[Cooperation Yields Agency]] § How it fails draws part of it — control, service and optimization each break the shared intent — and [[CHILD]]'s "honesty holds and taste yields" draws another part.
 - How do we model disagreement with AI without undermining trust in the tool?
 - Can this partnership philosophy scale to community, or is it inherently 1:1?
+  - Progressed (2026-11-16, a forage crumb from outside the palace): Michael Tomasello's answer is that it scaled once, and not by enlarging the pair. *A Natural History of Human Thinking* (2014) has two steps: joint intentionality, two collaborators sharing one goal, then collective intentionality, when people had to cooperate with strangers in their own group and culture and language arose. Read through Cecilia Heyes's review (*Current Biology* 24(9), 2014), not the book.
 
 <!-- CLAUDE → LOUDON: This entry captures the philosophy well, but it would benefit from a concrete example showing the difference between "AI helped me become better" vs "AI just completed a task." The 4 Pillars conversation is mentioned, but a smaller, more focused example might make it more accessible. Consider adding a "before/after" case study. -->
 
