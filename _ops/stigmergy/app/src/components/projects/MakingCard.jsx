@@ -4,6 +4,8 @@ import ArtifactSlot from '../ArtifactSlot.jsx';
 import EquationBlock from '../EquationBlock.jsx';
 import TableBlock from '../TableBlock.jsx';
 import Linkify from '../../lib/linkify.jsx';
+import { sectionState } from '../../lib/scroll-answers.js';
+import { FileMarks, SectionAnswer, useReviewDraft } from './SectionReview.jsx';
 
 // MakingCard — one made thing on a project's trail, played the way the
 // Trickster card played it the day it shipped (2026-10-13; Loudon: "a showcase
@@ -50,12 +52,14 @@ const HEAVY_MARGIN = '300px';
 const PIECE_HEIGHT = 800;
 const FRAME_PLACEHOLDER = PIECE_HEIGHT + 60;
 
-function HeavyArtifact({ artifact }) {
+function HeavyArtifact({ artifact, under }) {
   return (
     <div data-testid="heavy-artifact" data-artifact-path={artifact.path}>
       <LazyMount margin={HEAVY_MARGIN} placeholderHeight={FRAME_PLACEHOLDER}>
         <ArtifactSlot payload={{ artifacts: [artifact] }} frameHeight={PIECE_HEIGHT} />
       </LazyMount>
+      {/* Outside the LazyMount: the marks stay when the frame unloads. */}
+      {under ? under(artifact) : null}
     </div>
   );
 }
@@ -63,14 +67,28 @@ function HeavyArtifact({ artifact }) {
 const dim = { color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 };
 const prose = { whiteSpace: 'pre-wrap', wordBreak: 'break-word', maxWidth: '78ch', fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--phosphor)', marginTop: 6 };
 
-export default function MakingCard({ spec, index, refIndex, onNavigate }) {
+// `review` is the scroll's word on answering: { home, stale, onAnswered }, or
+// null where nothing can be written (the public read view). A section takes
+// marks only on files its own text links, since the answer is kept in that
+// text and fingerprints those files.
+export default function MakingCard({ spec, index, refIndex, onNavigate, review = null }) {
   const sid = spec.id || 'free';
+  const canReview = !!(review && spec.id);
+  const draft = useReviewDraft(review ? review.home : '', sid);
+  const own = new Set(spec.ownPaths || []);
+  const under = canReview ? (a) => (own.has(a.path) ? <FileMarks path={a.path} review={draft} /> : null) : undefined;
+  const stale = (canReview && review.stale && review.stale[spec.id]) || [];
+  const base = canReview ? sectionState({ id: spec.id, body: spec.sectionBody || '', artifacts: (spec.ownPaths || []).map((path) => ({ path })) }) : null;
+  const state = base === 'answered' && stale.length ? 'earlier' : base;
+  const foot = canReview && (own.size > 0 || spec.question || (spec.answers || []).length) ? (
+    <SectionAnswer home={review.home} section={spec.id} question={spec.question} answers={spec.answers || []} state={state} stale={stale} review={draft} onAnswered={review.onAnswered} />
+  ) : null;
   const media = (
     <>
-      {spec.artifacts.light.length ? <ArtifactSlot payload={{ artifacts: spec.artifacts.light }} /> : null}
+      {spec.artifacts.light.length ? <ArtifactSlot payload={{ artifacts: spec.artifacts.light }} under={under} /> : null}
       {spec.artifacts.heavy.length ? (
         <div style={{ marginTop: 8, display: 'grid', gap: 6 }}>
-          {spec.artifacts.heavy.map((a) => <HeavyArtifact key={a.path} artifact={a} />)}
+          {spec.artifacts.heavy.map((a) => <HeavyArtifact key={a.path} artifact={a} under={under} />)}
         </div>
       ) : null}
     </>
@@ -82,6 +100,7 @@ export default function MakingCard({ spec, index, refIndex, onNavigate }) {
         {spec.heading ? <div style={{ color: 'var(--phosphor-white)', textShadow: 'var(--glow)', fontSize: 14, marginBottom: 4 }}>{spec.heading}</div> : null}
         <EntryBody body={spec.prose} index={index} refIndex={refIndex} onNavigate={onNavigate} />
         <LazyMount>{media}</LazyMount>
+        {foot}
         {spec.footer ? <div style={{ ...dim, fontSize: 10, marginTop: 4, letterSpacing: '.04em' }}>{spec.footer}</div> : null}
       </div>
     );
@@ -122,6 +141,7 @@ export default function MakingCard({ spec, index, refIndex, onNavigate }) {
           {spec.decision.notes ? <div style={{ ...prose, color: 'var(--phosphor-white)', textShadow: 'none', marginTop: 2 }}>{spec.decision.notes}</div> : null}
         </div>
       ) : null}
+      {foot}
       {spec.footer ? <div style={{ ...dim, fontSize: 10, marginTop: 6, letterSpacing: '.04em' }}>{spec.footer}</div> : null}
     </div>
   );

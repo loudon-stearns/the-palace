@@ -41,6 +41,7 @@ import {
 import { parseFrontmatter } from '../../orchestrator/src/entry-frontmatter.js';
 import { enchantSteward } from '../../orchestrator/src/enchant.js';
 import { resolveModel } from '../../../models/latest-opus.mjs';
+import { reviewOf, reviewCountFor } from './scroll-answer.js';
 
 const PERSISTENT_REL = '_ops/swarm/persistent/blackboard.jsonl';
 
@@ -176,6 +177,8 @@ function entryRow({ palaceRoot, p, boardMsgs, stewards, worker, now }) {
     stands: nowView.stands || '',
     scroll_path: scrollRel,
     scroll_exists: scrollExists,
+    // Trail sections that ask Loudon something, and those he has answered (scroll-answer.js).
+    review: scrollExists ? reviewCountFor(palaceRoot, scrollRel) : null,
     running,
     queued,
     run: running && worker.current_run ? { position: worker.current_run.position, cap: worker.current_run.cap, cycle_n: worker.current_run.cycle_n } : null,
@@ -299,6 +302,7 @@ function ledgerRow(palaceRoot, st, kind) {
     last_activity: [lastTs, st.spec && st.spec.ts].filter(Boolean).sort().pop() || null,
     scroll_path: scrollRel,
     scroll_exists: existsSync(join(palaceRoot, scrollRel)),
+    review: reviewCountFor(palaceRoot, scrollRel),
   };
 }
 
@@ -335,7 +339,7 @@ export function readScroll({ palaceRoot, home, write = false, now = new Date().t
     return {
       home, kind: r.kind || null, path: relative(palaceRoot, scrollPath), exists: true, text: raw,
       zones: { now: readZone(raw, MARK.nowStart, MARK.nowEnd) || '', plan: readPlan(raw), orders: readStandingOrders(raw), making: readZone(raw, MARK.makingStart, MARK.makingEnd) || '' },
-      now: {}, tuning: null, ledger_orders: [], steward: s ? { dir: s.dir, agent_id: s.agent_id } : null, ts: now, note: r.reason,
+      now: {}, tuning: null, ledger_orders: [], review: reviewOf(palaceRoot, raw), steward: s ? { dir: s.dir, agent_id: s.agent_id } : null, ts: now, note: r.reason,
     };
   }
   const text = r.text;
@@ -367,6 +371,9 @@ export function readScroll({ palaceRoot, home, write = false, now = new Date().t
     // and the orders already there.
     tuning: st ? st.tuning : null,
     ledger_orders: st ? st.orders : [],
+    // Where the trail's sections stand with Loudon: how many wait on him, how many he
+    // has answered, and which answers are about a file since remade.
+    review: reviewOf(palaceRoot, text),
     steward: s ? { dir: s.dir, agent_id: s.agent_id } : null,
     ts: now,
   };

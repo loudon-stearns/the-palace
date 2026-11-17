@@ -115,6 +115,13 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
   // The trail as cards (2026-10-13): each section joined to its board message
   // so it plays as it did the day it shipped; media mounts as you reach it.
   const cards = useMemo(() => sections.map((s) => cardSpec(s, messages)), [sections, messages]);
+  // Answering in place (2026-11-17): the server says how many sections wait on
+  // him and which answers are about a file since remade; a send hands back the
+  // fresh scroll. Nothing is writable on the public read view.
+  const review = useMemo(() => (IS_PUBLIC || !scroll || !scroll.exists ? null : { home, stale: scroll.review?.stale || {}, onAnswered: (r) => setScroll(r) }), [home, scroll]);
+  const waitingN = review ? (scroll.review?.waiting || 0) : 0;
+  const answeredN = review ? (scroll.review?.answered || 0) : 0;
+  const toFirstWaiting = () => { const el = document.querySelector('[data-testid="section-review"][data-state="waiting"], [data-testid="section-review"][data-state="earlier"]'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
   const index = palace?.index || new Map();
   const refIndex = palace?.refIndex || null;
   const onNavigate = palace?.openEntryInState || null;
@@ -385,10 +392,10 @@ export default function ScrollView({ home, row, worker, messages = [], onConfirm
             </div>
           </div>
 
-          <ZoneTitle right={<span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>{sections.filter((s) => s.id).length} {isLedgerRow ? `run${sections.filter((s) => s.id).length === 1 ? '' : 's'} and changes` : `made thing${sections.filter((s) => s.id).length === 1 ? '' : 's'}`} · newest first</span>}>The making</ZoneTitle>
+          <ZoneTitle right={<span style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 }}>{waitingN ? <span data-testid="scroll-review-waiting" style={{ color: 'var(--warn)', textShadow: 'var(--glow)', cursor: 'pointer' }} title="go to the first one" onClick={toFirstWaiting}>{waitingN} waiting on you</span> : null}{waitingN ? ' · ' : ''}{answeredN ? <span data-testid="scroll-review-answered">{answeredN} answered · </span> : null}{sections.filter((s) => s.id).length} {isLedgerRow ? `run${sections.filter((s) => s.id).length === 1 ? '' : 's'} and changes` : `made thing${sections.filter((s) => s.id).length === 1 ? '' : 's'}`} · newest first</span>}>The making</ZoneTitle>
           <div data-testid="scroll-making" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {cards.map((c, i) => (
-              <MakingCard key={c.id || `free-${i}`} spec={c} index={index} refIndex={refIndex} onNavigate={onNavigate} />
+              <MakingCard key={c.id || `free-${i}`} spec={c} index={index} refIndex={refIndex} onNavigate={onNavigate} review={review} />
             ))}
           </div>
         </>

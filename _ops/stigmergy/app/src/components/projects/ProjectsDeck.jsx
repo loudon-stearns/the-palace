@@ -109,6 +109,7 @@ export function CeremonyRow({ row, onOpen, onOpenEntry, prefix = 'ceremony' }) {
       </span>
       <span data-testid={`${prefix}-owed-${sid}`} style={{ ...dim, color: row.owed.length ? 'var(--warn)' : 'var(--phosphor-dim)', textShadow: row.owed.length ? 'var(--glow)' : 'none' }}>
         {row.owed.length ? `${row.owed.length} owed` : 'nothing owed'}
+        {row.review && row.review.waiting ? <span data-testid={`${prefix}-waiting-${sid}`} style={{ color: 'var(--warn)', textShadow: 'var(--glow)' }}> · {row.review.waiting} waiting on you</span> : null}
       </span>
     </div>
   );

@@ -7,9 +7,12 @@
 //   PUT /api/projects/orders           — { home, orders, kind? } → an order from Loudon: `standing`
 //                                        (the default) to the scroll, `once` to the tuning ledger as owed
 //   PUT /api/projects/plan             — { home, plan, why } → write the agreed Plan, any page (logged on the trail)
+//   POST /api/projects/answer          — { home, section, words, marks } → Loudon's answer to one trail section,
+//                                        kept in the scroll, with its ledger line, board note and commit
 //   POST /api/projects/enchant         — { home } → give the project a steward (idempotent)
 
 import { jsonResponse, readBody } from '../http.js';
+import { answerScroll } from '../scroll-answer.js';
 import { buildProjectRows, buildServiceRows, buildCeremonyRows, buildLedgerPageRows, readScroll, writeOrders, writePlan, enchantProject } from '../projects.js';
 
 export async function projectsRoutes(ctx) {
@@ -84,6 +87,30 @@ export async function projectsRoutes(ctx) {
       jsonResponse(res, 200, r);
     } catch (err) {
       jsonResponse(res, 500, { error: `write plan failed: ${err.message}` });
+    }
+    return true;
+  }
+
+  if (urlPath === '/api/projects/answer' && method === 'POST') {
+    const bodyText = await readBody(req, res);
+    if (bodyText === null) return true;
+    let body;
+    try { body = JSON.parse(bodyText); } catch (e) {
+      jsonResponse(res, 400, { error: `malformed JSON: ${e.message}` });
+      return true;
+    }
+    const home = body && typeof body.home === 'string' ? body.home.trim() : '';
+    const section = body && typeof body.section === 'string' ? body.section.trim() : '';
+    if (!home) { jsonResponse(res, 400, { error: 'missing home' }); return true; }
+    if (!section) { jsonResponse(res, 400, { error: 'missing section' }); return true; }
+    if (body.words != null && typeof body.words !== 'string') { jsonResponse(res, 400, { error: 'words must be a string' }); return true; }
+    if (body.marks != null && !Array.isArray(body.marks)) { jsonResponse(res, 400, { error: 'marks must be a list' }); return true; }
+    try {
+      const r = await answerScroll({ palaceRoot, home, section, words: body.words || '', marks: body.marks || [] });
+      if (!r.ok) { const { status, ...rest } = r; jsonResponse(res, status || 422, rest); return true; }
+      jsonResponse(res, 200, { ...readScroll({ palaceRoot, home }), answer: { commit: r.commit, ledger: r.ledger, ledger_line: r.ledger_line, board_id: r.board_id, notes: r.notes } });
+    } catch (err) {
+      jsonResponse(res, 500, { error: `answer failed: ${err.message}` });
     }
     return true;
   }
