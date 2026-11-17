@@ -352,3 +352,10 @@ What each morning taught the practice. Each item names what the morning showed a
 121. **The rough's draw leaned one way, and the page said so.** The game drew nine pairs by a seeded shuffle, each one an "I am" vector against one that names a want, same type, use differing by at least 1.8×. In seven of the eight scored pairs the "I am" page was the more used, while the whole-palace table, within type, showed no lean. The 1.8× gap favoured the big working pages, which mostly open "I am". The game still held, because the table carried the finding and the page called the draw luck. A game's draw is worth checking for balance against the claim it tests before the hello. Nothing forced.
 
 - run · 2026-11-15 · v1.11 · Entry Conatus, trim + tune · taught item 121
+
+## From the morning of 2026-11-13 — Oblique Portrait (sat 11-14 to 11-17)
+
+122. **The prep's piece tested the page's decoy, not its claim.** Window or Door blind-tested the March dossier's media picks against direct picks. It tied, and it muddled "do I like this" with "does this reflect me". Loudon then named the media list the least important part, an output contrived to give the hidden goal something to collect. Nothing forced; a case for prep steps 3 and 5: before building a test, the outside read asks what the page is *for*, not what it once *output*.
+123. **The sit went past a small edit on his word.** "write it this morning, I want to see it": a deep rewrite, a new Context and the scroll's first Plan, all read as drafts first (970f7ae4). The reach-past-the-page question again (items 50, 70, 80, 105, 109, 117). Nothing forced.
+124. **scroll.js resolves a page by filename, and found a draft copy first.** A draft named `Oblique Portrait.md` in the ignored roughs folder took the scroll; renamed to `.txt` and rerun, it went to the bundle. Its `--headline` also doubled its own prefix, fixed by hand. Nothing forced in the card; a craft note: keep a draft named after its page out of the `.md` namespace while a tool resolves by name. Whether `scroll.js` should prefer the canon path is the tool's question.
+- run · 2026-11-13 · v1.11 · Oblique Portrait, tune · taught items 122–124
