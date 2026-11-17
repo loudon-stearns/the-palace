@@ -9,3 +9,5 @@ pieces/*/*.wav
 pieces/*/*.npy
 # The round's single page of embedded media, when it is built.
 all pieces.html
+# Copies of a project's own tracked files, used as inputs; their hashes are in provenance.json.
+pieces/*/project/

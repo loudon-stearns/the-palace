@@ -1,0 +1,172 @@
+{
+ "read_on": "2026-11-17",
+ "frame": [
+  50,
+  180
+ ],
+ "note": "Every date drawn has two sources, named in sources{} by key. 'lo'/'hi' bound an uncertain date; a soft end is drawn across that range. A date given as one year in both sources is drawn sharp.",
+ "sources": {
+  "SEP-E": "Stanford Encyclopedia of Philosophy, 'Epictetus' (plato.stanford.edu/entries/epictetus/), read 2026-11-17",
+  "IEP-E": "Internet Encyclopedia of Philosophy, 'Epictetus' (iep.utm.edu/epictetu/), read 2026-11-17",
+  "SEP-M": "Stanford Encyclopedia of Philosophy, 'Marcus Aurelius' (plato.stanford.edu/entries/marcus-aurelius/), read 2026-11-17",
+  "IEP-M": "Internet Encyclopedia of Philosophy, 'Marcus Aurelius' (iep.utm.edu/marcus/), read 2026-11-17",
+  "LIV": "Livius.org, 'Marcus Aurelius' (Jona Lendering; chronology section), read 2026-11-17",
+  "FRONTO": "Fronto, Ad M. Caesarem 4.13, Marcus to Fronto: 'at twenty-five years of age' (romanletters.org/letters/fronto/fronto.ad.m.caes.iv.13/, dated there c. 147, and 145-147 in the 19th-century translation), read 2026-11-17",
+  "WIKI-M": "Wikipedia, 'Marcus Aurelius': 'By the age of twenty-five (between April 146 and April 147)', footnoted to Birley, Marcus Aurelius, p. 69; plague 'broke out in 165 or 166'; read 2026-11-17",
+  "MED-1.7": "Marcus Aurelius, Meditations 1.7, George Long's translation (classics.mit.edu): Rusticus, 'I am indebted to him for being acquainted with the discourses of Epictetus, which he communicated to me out of his own collection'; read 2026-11-17",
+  "WIKI-R": "Wikipedia, 'Quintus Junius Rusticus', quoting Meditations 1.7 and Historia Augusta, Marcus 3; gives no year for the lending; read 2026-11-17",
+  "MED-HEADS": "Meditations, end of Book 1 'Among the Quadi at the Granua' and end of Book 2 'This in Carnuntum' (Long, classics.mit.edu), read 2026-11-17",
+  "DJ": "Richard Duncan-Jones, 'The Antonine Plague Revisited', Arctos 52 (2018), § 2 Chronicle of Events: '165 Plague in the east at Nisibis and Smyrna', '165/6 brought back to Rome', '182 ... Bedaium', '189 At Rome, the worst plague outbreak known to Dio'; read 2026-11-17",
+  "WIKI-MW": "Wikipedia, 'Marcomannic Wars': 'AD 166-180', 'a series of wars lasting from about CE 166 until 180'; read 2026-11-17",
+  "DIO-72": "Cassius Dio, Roman History, epitome of Book 72 (Loeb, LacusCurtius) § 33: 'he passed away on the seventeenth of March'; § 34: 'emperor himself nineteen years and eleven days'; read 2026-11-17",
+  "EUS-5.1": "Eusebius, Church History 5.1.1 (trans. McGiffert, NPNF, newadvent.org): 'In the seventeenth year of the Emperor Antoninus Verus ... Gaul, of which Lyons and Vienne are the principal'; the seventeenth year of a reign begun 161 is 177; read 2026-11-17",
+  "WIKI-E": "Wikipedia, 'Epictetus': 'Around AD 93, when the Roman emperor Domitian banished all philosophers from the city'; 'He died sometime around AD 135'; read 2026-11-17"
+ },
+ "epictetus": {
+  "born": {
+   "lo": 50,
+   "hi": 60,
+   "label": "born c. 50s, Hierapolis; a slave, later freed (SEP: 'spent a portion of his life as the slave of Epaphroditus', 'the freedman philosopher')",
+   "src": [
+    "SEP-E 'sometime in the 50s'",
+    "IEP-E 'in about 55'"
+   ]
+  },
+  "banished": {
+   "lo": 89,
+   "hi": 95,
+   "at": 89,
+   "label": "banished from Italy; teaches at Nicopolis, Greece",
+   "src": [
+    "SEP-E 'edict of Domitian (in 89)'",
+    "IEP-E 'in about 89 ... banished by the Emperor Domitian'",
+    "WIKI-E 'Around AD 93'"
+   ],
+   "doubt": "SEP and IEP give 89; Wikipedia gives 'around AD 93'. Drawn c. 89 with a soft end running to 95."
+  },
+  "arrian": {
+   "lo": 104,
+   "hi": 108,
+   "label": "Arrian writes down his lectures",
+   "src": [
+    "SEP-E 'around the year 108 by Millar's (1965) dating'",
+    "IEP-E 'some time around the years 104-107' (a conjecture)"
+   ]
+  },
+  "died": {
+   "lo": 130,
+   "hi": 140,
+   "at": 135,
+   "label": "dies c. 135, Nicopolis",
+   "src": [
+    "SEP-E 'until his death around 135'",
+    "IEP-E heading '(55-135 C.E.)'"
+   ]
+  }
+ },
+ "marcus": {
+  "born": {
+   "at": 121,
+   "label": "born, Rome",
+   "src": [
+    "SEP-M 'Born in 121 CE'",
+    "IEP-M 'born in 121 C.E.'",
+    "LIV '121 Born in Rome' (26 April)"
+   ]
+  },
+  "adopted": {
+   "at": 138,
+   "label": "adopted into the succession",
+   "src": [
+    "IEP-M 'adopted by the Emperor Antoninus Pius in 138 C.E.'",
+    "LIV '138 Adopted by Antoninus Pius'"
+   ]
+  },
+  "turn": {
+   "lo": 146,
+   "hi": 147,
+   "label": "at 25, turns to philosophy",
+   "src": [
+    "FRONTO 'at twenty-five years of age'",
+    "WIKI-M 'between April 146 and April 147' (Birley p. 69)"
+   ]
+  },
+  "rusticus": {
+   "label": "Rusticus lends him notes of Epictetus's lectures",
+   "undated": true,
+   "src": [
+    "MED-1.7",
+    "WIKI-R (no year)"
+   ]
+  },
+  "emperor": {
+   "at": 161,
+   "label": "emperor",
+   "src": [
+    "SEP-M 'Emperor of Rome in 161 CE'",
+    "IEP-M 'became Emperor himself in C.E. 161'",
+    "LIV '7 March 161'"
+   ]
+  },
+  "lyon": {
+   "at": 177,
+   "label": "martyrs at Lyon",
+   "src": [
+    "EUS-5.1 'seventeenth year' = 177",
+    "LIV '177 Martyrs in Lyon'"
+   ]
+  },
+  "died": {
+   "at": 180,
+   "label": "dies on the frontier",
+   "src": [
+    "DIO-72 'the seventeenth of March'; 'nineteen years and eleven days' from 7 March 161",
+    "SEP-M 'reigned until his death in 180'",
+    "LIV '17 March 180 ... dies in Vindobona'"
+   ],
+   "doubt": "Place: Vindobona (Livius) or Sirmium (Wikipedia lists both); Dio does not say. Drawn as 'on the frontier'."
+  }
+ },
+ "bands": {
+  "plague": {
+   "lo": 165,
+   "hi": 166,
+   "to": 180,
+   "beyond": true,
+   "label": "the Antonine plague, from 165/6",
+   "src": [
+    "DJ '165 Plague in the east'; '165/6 brought back to Rome'; outbreaks in 182 and 189",
+    "WIKI-M 'broke out in 165 or 166'",
+    "LIV '165 Outbreak of the Plague'"
+   ],
+   "doubt": "It runs past the frame: Duncan-Jones lists outbreaks in 182 and 189. Drawn as continuing past 180."
+  },
+  "wars": {
+   "lo": 166,
+   "hi": 169,
+   "to": 180,
+   "label": "war on the northern frontier",
+   "src": [
+    "WIKI-MW 'from about CE 166 until 180'",
+    "LIV '169 ... leaves Rome for war against the Germanic tribes'; '179 continued war'; '180 ... dies in Vindobona'"
+   ],
+   "doubt": "The wars began c. 166 with crossings of the frontier; Marcus himself left Rome for them in 169 (Livius). Soft start 166-169."
+  },
+  "meds": {
+   "lo": 170,
+   "hi": 180,
+   "core": [
+    171,
+    175
+   ],
+   "label": "the Meditations written, in the field",
+   "src": [
+    "IEP-M 'probably written while Marcus was on campaign in central Europe, c. C.E. 171-175'",
+    "SEP-M 'written during the last years of his military campaigns'",
+    "LIV '174 Begins Meditations'",
+    "MED-HEADS 'Among the Quadi at the Granua'; 'This in Carnuntum'"
+   ],
+   "doubt": "Scholars' dates vary: IEP c. 171-175, Livius begun 174, SEP 'the last years of his military campaigns' (to 180). Drawn as a soft span 170-180 with no sharp ends."
+  }
+ }
+}

@@ -70,6 +70,47 @@ Nothing below has been written to any page. A change to what a page says goes ho
 3. On a neighbour, the Biomechanical Synthesis piece check: "after frosting to the loops alone" overstates. Of the frosted dish's 121 threads, 51 are bridges on no loop.
 4. A question the piece raised and did not answer, worth the project's attention: a grown network gives back less at the spore than a newborn one (13.1 to 14.8 dB lower in peak at the newborn's own gain), and the engine's tap rule does not explain it.
 
+## Marcus Aurelius
+
+`pieces/Marcus Aurelius/lines.md` § Offers for the page, and `challenge.md`. The first two were found by the challenger.
+
+1. Line 76, "his own teacher Epictetus", is wrong. SEP: Marcus "was never in fact his pupil". Suggested: "Epictetus, whose notes taught him".
+2. "He learned his Stoicism from a book" overstates. The *Historia Augusta* (Marcus 3.1–3) has him attending Apollonius, Sextus, Rusticus and other Stoics; *Meditations* Book 1 thanks them. Suggested: "He learned Epictetus from a book". This is the sentence the piece sits beside.
+3. On a neighbour: `People/Epictetus.md` line 82, "learned this philosophy directly from a former slave", contradicts this page and SEP.
+4. "At night, in a tent" is in no source the maker or the challenger read.
+5. "The *Discourses* of Epictetus": *Meditations* 1.7 says *hypomnemata*, notes; Long translates it "discourses".
+6. The recommended path names the *Enchiridion*, an abridgement; the *Discourses* are nearer the notes Marcus read. Whether to recommend them first is taste.
+
+## Kokoro
+
+`pieces/Kokoro/challenge.md`, and the piece's own caption. The piece measures something other than the sentence it sits beside; that is offered here, not ruled.
+
+1. The gotcha says a bare variable letter "runs into the next word", and tuning item 7 says the May read put "K into 'is' without a breath". Measured on the May takes themselves, both have a short quiet from K into "is"; what the commas changed is a quiet before K. Loudon's own words in item 7 ask for "more pause … before the variable name". Pending his ear.
+2. "(Kokoro itself is seeded)" is not so: unseeded renders differ, and `torch.manual_seed` makes samples identical.
+3. Tuning item 7's "em-dashes (`-- K --`) work too": in 0.9.4, `--` gave no quiet before K. Only `--` was tested.
+4. The loudnorm gotcha is contradicted by this round's run: asked for linear, it ran dynamic and shortened a measured quiet from 140 to 110 ms.
+
+## Animate the Background
+
+`pieces/Animate the Background/challenge.md`
+
+1. "(on the `feature/blueline-m3` branch)" is stale, in three places.
+2. The hero has letter-like scrawls, against its own prompt.
+3. The page's step 3 names SVD and a RAFT morph; the piece could only show the tear under the N-Layer ink warp. "The edge still untested" stands for the page's hard case, fire around the legs.
+4. For BLUELINE, carried to its tuning ledger as an offer: shot 02's source file is gone from disk and git, eleven `blender-fire` scripts point at it, and the image survives whole as the left half of `proofs/blender-fire/renders/proof/03_depth_ordering.png`.
+
+## Deposit Ceremony
+
+`pieces/Deposit Ceremony/challenge.md`. The piece itself is held in the workshop for Loudon's word and is not placed.
+
+1. The scroll's Now zone is stale: it says v2.1, growing, items 15–24 owed; the page is v2.9, mature, items paid.
+2. Steps 5 and 6 read as contradictory to a newcomer. A clause that "written" means written to canon would settle it.
+3. In the tuning ledger, the LTCSPEED run line and its correction sit under the heard-rise heading.
+
+## Comic and Cinema — Two Ways of Seeing
+
+Held for Loudon's word on using BLUELINE's boards; it has a line in `lines-2.md` and no piece. That line records no offers for the page. The working session says its reader made four; they are in the session's record and will be added here when it hands them over.
+
 ## What is not here
 
-The working session counted about thirty-five offers across the five pages, with the makers' own reports in hand. This file holds thirty-one, from the five `challenge.md` files only. If the makers' reports hold more, they are not yet gathered.
+For the first five pages the working session counted about thirty-five offers, with the makers' own reports in hand; this file holds thirty-one of those, from the five `challenge.md` files only. For the second five it holds seventeen, and Comic and Cinema's four are still to come.

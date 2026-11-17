@@ -1,0 +1,136 @@
+{
+ "source": "git, the palace's history: merge f91572e2, its branch 4bee43f9..47a76840, base f9228120",
+ "base": {
+  "hash": "f9228120",
+  "when": "2026-11-04T08:45:56-05:00",
+  "parents": [
+   "35da1c5c"
+  ],
+  "subject": "ops(stigmergy): Back to the Trickster deck keeps the open card where it sat",
+  "body": "ops(stigmergy): Back to the Trickster deck keeps the open card where it sat\n\nJust before a deck switch or an entry jump pushes its history step,\nurl-nav announces the leave (nav:leave), and the deck writes its view onto\nits own history entry: the open cards, the collapse, the search and\nfilters, and the card last clicked with its distance from the top of the\nwindow. A Back onto that entry starts the deck from that view and puts the\ncard back where it sat, focused. Entering by tab or t pushes a fresh entry\nwith no view, so it still starts collapsed and unfiltered.\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n\n",
+  "verify": null,
+  "lines_added": 91,
+  "lines_removed": 7,
+  "files": 2
+ },
+ "branch": [
+  {
+   "hash": "4bee43f9",
+   "when": "2026-11-04T08:48:13-05:00",
+   "parents": [
+    "f9228120"
+   ],
+   "subject": "deposit(D-2026-11-04-AUDILLUSIONS): Auditory Illusions minted: the ear climbed stage by stage, each illusion with its twin in the eye; closes the Shepard ghost",
+   "body": "deposit(D-2026-11-04-AUDILLUSIONS): Auditory Illusions minted: the ear climbed stage by stage, each illusion with its twin in the eye; closes the Shepard ghost\n\nMint: Auditory Illusions, a concept at the root (creation, tools, philosophy; sprout, offered), with its Context in the bundle. Closes the [[Auditory Illusions]] ghost in Shepard Tone Synthesizer Open Question 6, which the 2026-10-24 Weave ruled an invitation.\n\nMap as shown to Loudon: links emerged-from Shepard Tone Synthesizer (the-barber-pole-question), connects-to Frequency-Time Duality (risset-on-the-duality-axis), connects-to Boundary-Crossing Instruments (thresholds-the-ear-draws), connects-to Sidechain ↔ Conversation (masking-heard), mirrors Whisper (phantom-words). No hero yet; rich face to go to Enrichment as a commissioning baton. Loudon changed the title from the working name Sonic Hallucinations (\"Auditory illusions is good for me, lets use that name\"). The length tension (about 3,300 words against sprout 150-400) was named to him, and the explanations were kept.\n\nParked on a branch under Deposit step 6: the words wait for Loudon to read them whole, and for a cold read by a fresh palace-reader, since the Concierge shaped the map. Lints run in the worktree: doc-drift, ghost-links, bundle-hygiene and entry-naming show nothing against the new files; link-directions on a fresh temp build, no errors; the Shepard ghost no longer reports.\n\nDeposit Ceremony v2.9.\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n\nPalace-Kind: deposit\nPalace-Entry: Auditory Illusions\nPalace-Vector: Auditory Illusions: changed\nPalace-Stage: Auditory Illusions: born->sprout\nPalace-Vector: Auditory Illusions — Context: changed\nPalace-Verify: unverified\nPalace-Author: claude\n\n",
+   "verify": "unverified",
+   "lines_added": 239,
+   "lines_removed": 0,
+   "files": 2,
+   "fixes": 0,
+   "fixes_counted_from": "none named"
+  },
+  {
+   "hash": "c5dc144a",
+   "when": "2026-11-04T08:50:05-05:00",
+   "parents": [
+    "4bee43f9"
+   ],
+   "subject": "deposit(D-2026-11-04-AUDILLUSIONS): three factual fixes before the cold read: almost everywhere, the gap transfer dates, the Whisper line kept to its source",
+   "body": "deposit(D-2026-11-04-AUDILLUSIONS): three factual fixes before the cold read: almost everywhere, the gap transfer dates, the Whisper line kept to its source\n\nThree factual fixes before the cold read, approved by the working session; Loudon reads the final words before landing.\n\n- \"Everywhere else\" became \"Almost everywhere else\" (page § opening) and \"only\" became \"almost only\", naming the exceptions (Context): People/Douglas Hofstadter.md:20 and People/Agnes Martin/Agnes Martin — dossier.md:19 use the word outside the model-failure sense.\n- Gap transfer illusion: found in 1992, published in 2000 (Nakajima and colleagues, Perception & Psychophysics); sources https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10477769/ and the 2006 Acoustical Science and Technology review.\n- The Whisper line under Phantom words now says only what Shop/Whisper.md:57 says: the model decides the gap means the video is over.\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n\nPalace-Kind: deposit\nPalace-Entry: Auditory Illusions\nPalace-Verify: unverified\nPalace-Author: claude\n\n",
+   "verify": "unverified",
+   "lines_added": 4,
+   "lines_removed": 4,
+   "files": 2,
+   "fixes": 3,
+   "fixes_counted_from": "the body's 3 bullets"
+  },
+  {
+   "hash": "fab93999",
+   "when": "2026-11-04T08:58:16-05:00",
+   "parents": [
+    "c5dc144a"
+   ],
+   "subject": "deposit(D-2026-11-04-AUDILLUSIONS): cold-read fixes: twins regraded where the mechanism was a shape, dates and credits made exact, the guesses marked as guesses, Whisper a cousin of phantom words",
+   "body": "deposit(D-2026-11-04-AUDILLUSIONS): cold-read fixes: twins regraded where the mechanism was a shape, dates and credits made exact, the guesses marked as guesses, Whisper a cousin of phantom words\n\nAmends 4bee43f9 and c5dc144a on the cold reader's \"pass with fixes\", relayed by the working session; Loudon has not yet read these words, and the rewritten sentences go to a second fresh reader. Page: (1) the intro's climb now runs out into time and silence; (2) the last section \"ends in\" the true hallucinations; (3) beats are two oscillators that never lock; (4) masking's twin regraded to shape, cochlear swamping against lateral inhibition, table row to match; (5) interaural timing stated as tens of microseconds, a few hundredths of a millisecond; (6) Shepard: the later stages found where it breaks, the stack fuses only while every voice is an octave apart, and the 1967 film credited to Shepard and E. E. Zajac; (7) the tritone split traced by Deutsch to the speech range listeners grew up hearing; (8) streaming's mechanism marked arguable, Remez named, table row \"mechanism, argued\"; (9) Whisper is a cousin of phantom words, absent input against ambiguous; (10) the Risset rhythm placed on the Duality axis; (11) Stockhausen's piece is an essay, and the click-to-pitch crossing tied to [[Boundary-Crossing Instruments]]; (12) flicker fusion regraded to shape, table row to match; (13) the Zwicker tone heard by between about half and most people; (14) the twinless-rows claim marked a guess, pointing at the Context's open question 3; (15) \"one wave per source\" dropped from the bets; (16) \"Nearly every one\" can be built; (17) the masking trial is proposed for Sidechain's rich face, and the Echo Walk's Haas zone stated as the Duality states it. Context: (18, 21) Stockhausen's essay, the Shepard-Zajac film and Ungan and Yagcioglu's numbers moved to the checked list; (19) the exceptions name Hofstadter's page and dossier; (20) the visual-twin paragraph records where Shepard's Kanizsa and Rubin pairings went. Declined: a body link to Agnes Martin from the musical-ear section. Lints re-run.\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n\nPalace-Kind: deposit\nPalace-Entry: Auditory Illusions\nPalace-Verify: unverified\nPalace-Author: claude\n\n",
+   "verify": "unverified",
+   "lines_added": 27,
+   "lines_removed": 27,
+   "files": 2,
+   "fixes": 21,
+   "fixes_counted_from": "the body's numbering (1)..(21)"
+  },
+  {
+   "hash": "bd90c3bf",
+   "when": "2026-11-04T09:01:38-05:00",
+   "parents": [
+    "fab93999"
+   ],
+   "subject": "deposit(D-2026-11-04-AUDILLUSIONS): second-read fixes: the unplayable Echo Walk line out, the table cells squared with their grades, Remez and the Whisper bridge stated whole",
+   "body": "deposit(D-2026-11-04-AUDILLUSIONS): second-read fixes: the unplayable Echo Walk line out, the table cells squared with their grades, Remez and the Whisper bridge stated whole\n\nAmends fab93999 on the second reader's pass, relayed by the working session; Loudon has not yet read these words. Page: (1) the Echo Walk sentence leaves Already playable, because the May sketch plays in mono and has no Haas stop (Projects/Frequency-Time Duality/Frequency-Time Duality — rich.json:43); the precedence-effect entry carries the idea; (2) the Boundary-Crossing sentence now says what that page does: it takes this crossing as its first case, one dial, several perceptual worlds; (3, 4) the Masking and Click-into-pitch table cells now say what their regraded Seen lines say; (5) Remez's objection stated whole: shared rules describe the grouping without explaining it. Context: (6) the Whisper bridge says it joins cousins, not twins, and that mirrors names the shared move. Lints re-run.\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n\nPalace-Kind: deposit\nPalace-Entry: Auditory Illusions\nPalace-Verify: unverified\nPalace-Author: claude\n\n",
+   "verify": "unverified",
+   "lines_added": 6,
+   "lines_removed": 6,
+   "files": 2,
+   "fixes": 6,
+   "fixes_counted_from": "the body's numbering (1)..(6)"
+  },
+  {
+   "hash": "47a76840",
+   "when": "2026-11-08T07:52:42-05:00",
+   "parents": [
+    "bd90c3bf"
+   ],
+   "subject": "deposit(D-2026-11-04-AUDILLUSIONS): the Context's Whisper bridge says mirrors once",
+   "body": "deposit(D-2026-11-04-AUDILLUSIONS): the Context's Whisper bridge says mirrors once\n\nThe repeat flagged after the second read: the Bridges line said `mirrors` twice. Loudon was told it would be cut on landing, and read the words with that said (\"Read it, land it\", 2026-11-08).\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\n\nPalace-Kind: deposit\nPalace-Verify: verified\nPalace-Author: claude\n\n",
+   "verify": "verified",
+   "lines_added": 1,
+   "lines_removed": 1,
+   "files": 1,
+   "fixes": 1,
+   "fixes_counted_from": "the body names one repeat cut"
+  }
+ ],
+ "merge": {
+  "hash": "f91572e2",
+  "when": "2026-11-08T07:52:51-05:00",
+  "parents": [
+   "d59742dc",
+   "47a76840"
+  ],
+  "subject": "merge(deposit/auditory-illusions): Auditory Illusions lands: the cold read and the second read both passed, and Loudon read every word on 2026-11-08 (\"Read it, land it\")",
+  "body": "merge(deposit/auditory-illusions): Auditory Illusions lands: the cold read and the second read both passed, and Loudon read every word on 2026-11-08 (\"Read it, land it\")\n\nLanded with palace-land through the door.\n\nPalace-Kind: merge\nPalace-Verify: verified\nPalace-Author: claude\n\n",
+  "verify": "verified",
+  "lines_added": 239,
+  "lines_removed": 0,
+  "files": 2
+ },
+ "others_under_v2_9": {
+  "D-2026-11-05-LTCSPEED": {
+   "first": "2026-11-05T10:56:57-05:00",
+   "first_subject": "deposit(D-2026-11-05-LTCSPEED): SMPTE LTC takes its rich face's two claim-changes: rate and speed read together, and drop-frame's 86.4 ms a day",
+   "landing": "2026-11-05T10:56:57-05:00",
+   "landing_subject": "deposit(D-2026-11-05-LTCSPEED): SMPTE LTC takes its rich face's two claim-changes: rate and speed read together, and drop-frame's 86.4 ms a day",
+   "landing_kind": [
+    "deposit"
+   ]
+  },
+  "D-2026-11-09-DSPLOOP": {
+   "first": "2026-11-09T11:40:38-05:00",
+   "first_subject": "deposit(D-2026-11-09-DSPLOOP): DSP in Looping Dimensions folded: where the loops meet, two kinds of inharmonicity, nine figures",
+   "landing": "2026-11-09T11:40:58-05:00",
+   "landing_subject": "merge(frosty-hopper-7f1d77): D-2026-11-09-DSPLOOP: DSP in Looping Dimensions folded",
+   "landing_kind": [
+    "merge"
+   ]
+  },
+  "D-2026-11-15-OBSIDIAN-RETIRED": {
+   "first": "2026-11-15T08:51:06-05:00",
+   "first_subject": "edit(The Shop): a draft deposit for Obsidian's retirement, for Loudon to read; no page it names is changed",
+   "landing": "2026-11-16T08:31:35-05:00",
+   "landing_subject": "edit(SUBSTRATE): deposit D-2026-11-15-OBSIDIAN-RETIRED: Obsidian is retired; the palace is read and edited in STIGMERGY, and made things reach Loudon on a page's scroll",
+   "landing_kind": [
+    "edit"
+   ]
+  }
+ }
+}

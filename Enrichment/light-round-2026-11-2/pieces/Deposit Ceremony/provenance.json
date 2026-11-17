@@ -1,0 +1,93 @@
+{
+  "note": "Written by Shop/shop.mjs run. What made each piece here, and who has heard or seen it.",
+  "jobs": {
+    "words-wait": {
+      "page": "Deposit Ceremony",
+      "sentence": "Anything waiting on Loudon's read waits in a worktree of its own, on a branch, never in a scratch folder; it merges to main after his yes.",
+      "claim": "In one deposit (D-2026-11-04-AUDILLUSIONS), the words were written to a branch and fixed there three times within 13 minutes of being written (3 factual fixes, a cold reader's 21, a second reader's 6), then sat on the branch with no new commit for 3 days 22 h, and reached main in one merge whose message records that every word was read. The record does not show when the words were put in front of their reader.",
+      "chain": [
+        "hand: the deposit's five branch commits and its merge, read from git (merge f91572e2, branch 4bee43f9..47a76840) into deposit-record.json, and checked against git again on every run",
+        "hand: fix counts read two ways, from each commit body's own numbering and from git's numstat",
+        "Drawn SVG",
+        "hand: headless Chrome rasterises the SVG to PNG at 2x"
+      ],
+      "run": "python3 make.py",
+      "seed": null,
+      "inputs": {
+        "deposit-record.json": "b5a34bd0f55e86d3"
+      },
+      "outputs": {
+        "Deposit Ceremony — words wait on a branch.svg": "0c8c458d1808eabc",
+        "Deposit Ceremony — words wait on a branch.png": "d4a944258c8ed4a9"
+      },
+      "made": "2026-11-17T12:22:20.325Z",
+      "seconds": 1.5,
+      "host": "mac",
+      "commit_at_run": "694ea27e",
+      "by": "deposit-maker",
+      "runs": 1,
+      "heard_by": null,
+      "verdict": null
+    },
+    "placed-before-read": {
+      "page": "Deposit Ceremony",
+      "sentence": "Anything waiting on Loudon's read waits in a worktree of its own, on a branch, never in a scratch folder; it merges to main after his yes.",
+      "claim": "In one deposit (D-2026-11-04-AUDILLUSIONS), the map's yes came as a title change, not a read of the words, so the words were placed on a branch, outside canon: written, then fixed three times (3 factual fixes, a cold reader's 21, a second reader's 6), all within 13 min 25 s. They then sat with no new commit for 3 days 22 h and reached main in one merge whose message records that every word was read. Of the 6 deposits run under v2.8 and v2.9, it is the only one placed on a branch before its read; in 4 the read came first. The record does not show when the words were put in front of their reader.",
+      "chain": [
+        "hand: the same record as words-wait (deposit-record.json, checked against git), plus the six v2.8/v2.9 runs from the tuning ledger, each row citing its commit or ledger line; the script checks the six against the ledger's run lines and the repeat's origin against the diffs",
+        "Drawn SVG",
+        "hand: headless Chrome rasterises the SVG to PNG at 2x"
+      ],
+      "run": "python3 make2.py",
+      "seed": null,
+      "inputs": {
+        "deposit-record.json": "b5a34bd0f55e86d3",
+        "make.py": "544a8d119f52801c"
+      },
+      "outputs": {
+        "Deposit Ceremony — placed before the read.svg": "caa30a219c6e2376",
+        "Deposit Ceremony — placed before the read.png": "842e44b7bca4c940"
+      },
+      "made": "2026-11-17T12:30:40.837Z",
+      "seconds": 1.9,
+      "host": "mac",
+      "commit_at_run": "b67afdbf",
+      "by": "deposit-maker",
+      "runs": 2,
+      "heard_by": null,
+      "verdict": null
+    }
+  },
+  "batches": [
+    {
+      "at": "2026-11-17T12:22:20.333Z",
+      "jobs": [
+        "words-wait"
+      ],
+      "by": "deposit-maker",
+      "ledgers": {
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    },
+    {
+      "at": "2026-11-17T12:28:48.608Z",
+      "jobs": [
+        "placed-before-read"
+      ],
+      "by": "deposit-maker",
+      "ledgers": {
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    },
+    {
+      "at": "2026-11-17T12:30:40.840Z",
+      "jobs": [
+        "placed-before-read"
+      ],
+      "by": "deposit-maker",
+      "ledgers": {
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    }
+  ]
+}

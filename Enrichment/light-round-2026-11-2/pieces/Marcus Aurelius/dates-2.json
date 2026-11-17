@@ -1,0 +1,123 @@
+{
+ "read_on": "2026-11-17",
+ "frame": [
+  50,
+  180
+ ],
+ "note": "The remake's data. Every drawn date has two sources or more, keyed to sources{}. Every number printed in the picture is formatted from this file: a label's template carries {lo}, {hi}, {at} or {age} and no digits of its own (make2.py refuses one that does). 'lo'/'hi' bound an uncertain date and are drawn as a fade or a block.",
+ "sources": {
+  "SEP-E": "Stanford Encyclopedia of Philosophy, 'Epictetus' (plato.stanford.edu/entries/epictetus/), read 2026-11-17",
+  "IEP-E": "Internet Encyclopedia of Philosophy, 'Epictetus' (iep.utm.edu/epictetu/), read 2026-11-17",
+  "WIKI-E": "Wikipedia, 'Epictetus', read 2026-11-17",
+  "SEP-M": "Stanford Encyclopedia of Philosophy, 'Marcus Aurelius' (plato.stanford.edu/entries/marcus-aurelius/), read 2026-11-17",
+  "IEP-M": "Internet Encyclopedia of Philosophy, 'Marcus Aurelius' (iep.utm.edu/marcus/), read 2026-11-17",
+  "LIV": "Livius.org, 'Marcus Aurelius' (Jona Lendering), chronology, read 2026-11-17",
+  "HA-M": "Historia Augusta, Life of Marcus 1.5, 1.7, 2.6 and 3.1-3: Magie's Loeb translation and the Latin, both on LacusCurtius (penelope.uchicago.edu), read 2026-11-17",
+  "MED-1.6": "Meditations 1.6, Long's translation (classics.mit.edu): from Diognetus, devotion to philosophy and the wish for a plank bed and skin; undated; read 2026-11-17",
+  "MED-1.7": "Meditations 1.7, Long's translation (classics.mit.edu): Rusticus made him 'acquainted with the discourses of Epictetus, which he communicated to me out of his own collection'; undated; read 2026-11-17",
+  "WIKI-M": "Wikipedia, 'Marcus Aurelius': 'In April 132, at the behest of Diognetus, Marcus took up the dress and habits of the philosopher' (footnoted to Birley); read 2026-11-17",
+  "DIO-72": "Cassius Dio 72.33-34 (Loeb epitome, LacusCurtius): died 17 March, emperor nineteen years and eleven days; read 2026-11-17"
+ },
+ "epictetus": {
+  "born": {
+   "lo": 50,
+   "hi": 60,
+   "src": [
+    "SEP-E 'sometime in the 50s'",
+    "IEP-E 'in about 55'",
+    "WIKI-E 'presumed to have been born around AD 50'"
+   ]
+  },
+  "notes": {
+   "lo": 104,
+   "hi": 108,
+   "label": "a student, Arrian, writes down his lectures, c. {lo}–{hi}",
+   "src": [
+    "IEP-E: the Discourses 'written some time around the years 104–107' (a conjecture)",
+    "SEP-E: the teaching the Discourses record dates 'around the year 108 by Millar's (1965) dating'",
+    "WIKI-E: Arrian 'studied under him as a young man, around 108 AD'"
+   ],
+   "doubt": "No source dates the writing-down itself firmly: IEP's 104–107 is a conjecture, and SEP's 108 dates the teaching, with Arrian in the room. SEP also reports Dobbin's view that Epictetus may have written the texts himself."
+  },
+  "died": {
+   "lo": 130,
+   "hi": 140,
+   "at": 135,
+   "label": "dies c. {at}",
+   "src": [
+    "SEP-E 'until his death around 135'",
+    "IEP-E heading '(55–135 C.E.)'",
+    "WIKI-E 'He died sometime around AD 135'"
+   ]
+  },
+  "place": {
+   "label": "taught at Nicopolis, Greece",
+   "src": [
+    "SEP-E 'Nicopolis, in Epirus, on the Adriatic coast of northwest Greece'",
+    "IEP-E 'Nicopolis in Epirus (in north-western Greece)'"
+   ]
+  }
+ },
+ "marcus": {
+  "born": {
+   "at": 121,
+   "label": "{at}",
+   "src": [
+    "SEP-M 'Born in 121 CE'",
+    "IEP-M 'born in 121 C.E.'",
+    "LIV '121 Born in Rome'"
+   ]
+  },
+  "place": {
+   "label": "Rome",
+   "src": [
+    "HA-M 1.5 'born at Rome ... in a villa on the Caelian Hill'; 1.7 'He was reared in the villa where he was born'",
+    "LIV '121 Born in Rome'"
+   ]
+  },
+  "cloak": {
+   "lo": 132,
+   "hi": 133,
+   "age": 11,
+   "label": "at {age}, a philosopher's dress",
+   "src": [
+    "HA-M 2.6, Latin (LacusCurtius, Hohl's text): 'nam duodecimum annum ingressus habitum philosophi sumpsit', having entered his twelfth year, he took up the dress of a philosopher; Magie's English renders it 'when he was twelve years old'",
+    "WIKI-M 'In April 132 ... took up the dress and habits of the philosopher' (Birley)",
+    "MED-1.6 the plank bed and skin, undated"
+   ],
+   "doubt": "Entering his twelfth year, from a birth in April 121, is April 132 to April 133, age eleven; Birley's April 132 agrees. Magie's translation says 'twelve', which I first followed. The Historia Augusta is a late and often unreliable source; Meditations 1.6 supports the boyhood discipline but gives no age. Drawn grey, not red: one late life is not a hinge."
+  },
+  "died": {
+   "at": 180,
+   "label": "{at}",
+   "src": [
+    "DIO-72 'the seventeenth of March'; emperor 'nineteen years and eleven days' from 161",
+    "SEP-M 'reigned until his death in 180'",
+    "LIV '17 March 180'"
+   ]
+  }
+ },
+ "paper": {
+  "label": [
+   "notes of his lectures,",
+   "lent to Marcus by Rusticus;",
+   "the year is not recorded"
+  ],
+  "src": [
+   "MED-1.7",
+   "SEP-M: 'In i.7, Marcus speaks of reading Epictetus' 'hupomnêmata'; Arrian, who wrote down Epictetus' teachings, named them hupomnêmata, apparently in reference to Xenophon's Memorabilia (Greek title: 'hupomnêmata') of Socrates.'"
+  ],
+  "doubt": "SEP says Arrian named his record hupomnêmata, the word Marcus uses in 1.7. That makes it likely, not certain, that Rusticus's copy was Arrian's record. I did not read the Greek of Arrian's preface myself."
+ },
+ "column": {
+  "label": [
+   "both alive,",
+   "never his",
+   "pupil"
+  ],
+  "src": [
+   "SEP-E 'The emperor Marcus Aurelius was never in fact his pupil'",
+   "the two lifelines above: Marcus born 121 (SEP-M, IEP-M, LIV); Epictetus died c. 135 (SEP-E, IEP-E, WIKI-E)"
+  ]
+ }
+}

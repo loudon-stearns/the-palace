@@ -1,0 +1,24 @@
+{
+ "pixels_outside_hole": 922254,
+ "plate_equals_overlay_drawing_outside_hole": 759820,
+ "differ_by_more_than_8": 150147,
+ "overlay_extent_y": [
+  0,
+  542
+ ],
+ "overlay_pixels_within_12px_of_hole": 0,
+ "hero_mask_top_y": 523,
+ "man_core_px_at_560": 23942,
+ "man_core_mean_abs_err_vs_mp4_frames_0_255": [
+  1.83,
+  1.85
+ ],
+ "man_core_mean_abs_err_vs_07_still": 1.37,
+ "control_rebuilt_shifted_2px_vs_mp4_frame0": 11.24,
+ "control_plate_without_man_vs_mp4_frame0": 145.02,
+ "still_ground_px_at_560": 302359,
+ "still_ground_mean_abs_err_vs_mp4_frames": [
+  5.09,
+  5.11
+ ]
+}

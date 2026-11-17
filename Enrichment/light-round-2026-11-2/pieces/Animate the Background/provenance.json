@@ -1,0 +1,82 @@
+{
+  "note": "Written by Shop/shop.mjs run. What made each piece here, and who has heard or seen it.",
+  "jobs": {
+    "tear-at-the-edge": {
+      "page": "Animate the Background",
+      "sentence": "Skip this and a moving background tears at the figure's edge.",
+      "claim": "On BLUELINE shot 02, the project's own ink warp run with the infill step skipped drags a copy of the man's head out past his edge (up to 19 px in the 832 px frame, in 21 of the loop's 64 frames at the threshold used); the same warp over LaMa's plate leaves his edge clean to the eye. The claim is on the page; the mechanism is the project's (ink_flames.py: infill 'so the moving layer has no head to smear').",
+      "chain": [
+        "hand: ink_flames (BLUELINE's own warp, run from this folder by ink_flames_here.py, paths changed only), twice: over the plate and over the un-infilled shot",
+        "LaMa: the clean plate, rerun through Shop/LaMa's lama_fill.py on the rebuilt shot with the project's mask (feather > 100, 11 px dilation)",
+        "Drawn SVG: overlay.svg (labels, crop box, the ring), rasterised by Playwright's Chromium with a transparent ground",
+        "hand: make.py lays the two crops and the thumbnail under the overlay and writes the animated WebP (64 frames, 70 ms, the project's timing)"
+      ],
+      "run": "../../../../_tools/ComfyUI/venv/bin/python make.py all",
+      "seed": 0,
+      "inputs": {
+        "make.py": "5c74d4f13b6925f0",
+        "ink_flames_here.py": "4e7e535c8d8e8652",
+        "rasterize.mjs": "30532eb6a008efca",
+        "project/ink_flames.py": "c3887d8d9e4b365c",
+        "project/smoke_physics.json": "82a6b13099bfa007",
+        "project/clean_plate.png": "03f2f9e57e6713e9",
+        "project/hero_mask_feather.png": "1b21706b63cedc1e",
+        "project/fire_composite_drawing.png": "af5212d2f5cd554a",
+        "project/ink_flames.mp4": "b6b0b5dc80cecdde",
+        "project/07_ink_warp_alive.png": "f28afbbb69575170"
+      },
+      "outputs": {
+        "tear-at-the-edge.webp": "d24f62ddb3eded9f",
+        "tear-at-the-edge-still.png": "32661c76af9f5401",
+        "overlay.svg": "29ecd916b226fd1a",
+        "tear.json": "adb8cd452906806b",
+        "sources.json": "d65d0b2217a52f63",
+        "rebuild-check.json": "3f91c598669d79f4",
+        "lama-check.json": "0a4948a5529867d3"
+      },
+      "made": "2026-11-17T12:57:07.690Z",
+      "seconds": 67.8,
+      "host": "mac",
+      "commit_at_run": "56c9f98f",
+      "by": "maker: Animate the Background",
+      "runs": 3,
+      "heard_by": null,
+      "verdict": null
+    }
+  },
+  "batches": [
+    {
+      "at": "2026-11-17T12:33:47.718Z",
+      "jobs": [
+        "tear-at-the-edge"
+      ],
+      "by": "maker: Animate the Background",
+      "ledgers": {
+        "LaMa": "one line on Shop/LaMa/LaMa — tuning.md",
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    },
+    {
+      "at": "2026-11-17T12:53:14.148Z",
+      "jobs": [
+        "tear-at-the-edge"
+      ],
+      "by": "maker: Animate the Background",
+      "ledgers": {
+        "LaMa": "one line on Shop/LaMa/LaMa — tuning.md",
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    },
+    {
+      "at": "2026-11-17T12:57:07.693Z",
+      "jobs": [
+        "tear-at-the-edge"
+      ],
+      "by": "maker: Animate the Background",
+      "ledgers": {
+        "LaMa": "one line on Shop/LaMa/LaMa — tuning.md",
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    }
+  ]
+}

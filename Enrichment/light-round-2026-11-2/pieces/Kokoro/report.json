@@ -1,0 +1,728 @@
+{
+  "made": "2026-11-17",
+  "text": {
+    "bare": "The coupling constant K is phrasing density and rhythmic clarity.",
+    "commas": "The coupling constant, K, is phrasing density and rhythmic clarity."
+  },
+  "voices": [
+    "af_heart",
+    "af_bella",
+    "am_michael",
+    "am_adam"
+  ],
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "speed": 1.0,
+  "detector": {
+    "frame_ms": 10,
+    "relative_to": "the take's loudest 10 ms frame",
+    "cutoffs_db": [
+      -35,
+      -40,
+      -45
+    ],
+    "gap_counts_from_ms": 50,
+    "before_K": "longest quiet run ending between the middle of 'constant' and K's loudest frame",
+    "after_K": "longest quiet run starting between K's loudest frame and the middle of 'is'"
+  },
+  "kokoro": "0.9.4",
+  "torch": "2.11.0",
+  "load_sec": 4.3,
+  "same_seed_twice_max_abs_diff": 0.0,
+  "survey_summary": {
+    "af_heart / bare": {
+      "-35": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 0,
+          "min_ms": 20,
+          "median_ms": 20.0,
+          "max_ms": 20
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 260,
+          "median_ms": 260.0,
+          "max_ms": 260
+        }
+      },
+      "-40": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 0,
+          "min_ms": 10,
+          "median_ms": 10.0,
+          "max_ms": 10
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 260,
+          "median_ms": 260.0,
+          "max_ms": 260
+        }
+      },
+      "-45": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 0,
+          "min_ms": 0,
+          "median_ms": 0.0,
+          "max_ms": 0
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 230,
+          "median_ms": 230.0,
+          "max_ms": 230
+        }
+      }
+    },
+    "af_heart / commas": {
+      "-35": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 150,
+          "median_ms": 155.0,
+          "max_ms": 160
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 260,
+          "median_ms": 260.0,
+          "max_ms": 260
+        }
+      },
+      "-40": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 140,
+          "median_ms": 140.0,
+          "max_ms": 140
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 230,
+          "median_ms": 230.0,
+          "max_ms": 240
+        }
+      },
+      "-45": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 110,
+          "median_ms": 110.0,
+          "max_ms": 110
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 230,
+          "median_ms": 230.0,
+          "max_ms": 230
+        }
+      }
+    },
+    "af_bella / bare": {
+      "-35": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 0,
+          "min_ms": 10,
+          "median_ms": 10.0,
+          "max_ms": 10
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 360,
+          "median_ms": 360.0,
+          "max_ms": 360
+        }
+      },
+      "-40": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 0,
+          "min_ms": 10,
+          "median_ms": 10.0,
+          "max_ms": 10
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 350,
+          "median_ms": 350.0,
+          "max_ms": 350
+        }
+      },
+      "-45": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 0,
+          "min_ms": 0,
+          "median_ms": 0.0,
+          "max_ms": 0
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 350,
+          "median_ms": 350.0,
+          "max_ms": 350
+        }
+      }
+    },
+    "af_bella / commas": {
+      "-35": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 310,
+          "median_ms": 310.0,
+          "max_ms": 310
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 320,
+          "median_ms": 320.0,
+          "max_ms": 320
+        }
+      },
+      "-40": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 300,
+          "median_ms": 300.0,
+          "max_ms": 300
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 310,
+          "median_ms": 310.0,
+          "max_ms": 310
+        }
+      },
+      "-45": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 300,
+          "median_ms": 300.0,
+          "max_ms": 300
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 300,
+          "median_ms": 300.0,
+          "max_ms": 300
+        }
+      }
+    },
+    "am_michael / bare": {
+      "-35": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 0,
+          "min_ms": 40,
+          "median_ms": 40.0,
+          "max_ms": 40
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 370,
+          "median_ms": 370.0,
+          "max_ms": 370
+        }
+      },
+      "-40": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 0,
+          "min_ms": 30,
+          "median_ms": 30.0,
+          "max_ms": 30
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 360,
+          "median_ms": 360.0,
+          "max_ms": 360
+        }
+      },
+      "-45": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 0,
+          "min_ms": 30,
+          "median_ms": 30.0,
+          "max_ms": 30
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 350,
+          "median_ms": 360.0,
+          "max_ms": 360
+        }
+      }
+    },
+    "am_michael / commas": {
+      "-35": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 100,
+          "median_ms": 100.0,
+          "max_ms": 100
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 440,
+          "median_ms": 450.0,
+          "max_ms": 450
+        }
+      },
+      "-40": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 80,
+          "median_ms": 80.0,
+          "max_ms": 80
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 430,
+          "median_ms": 430.0,
+          "max_ms": 430
+        }
+      },
+      "-45": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 60,
+          "median_ms": 60.0,
+          "max_ms": 60
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 410,
+          "median_ms": 420.0,
+          "max_ms": 420
+        }
+      }
+    },
+    "am_adam / bare": {
+      "-35": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 0,
+          "min_ms": 30,
+          "median_ms": 40.0,
+          "max_ms": 40
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 220,
+          "median_ms": 220.0,
+          "max_ms": 230
+        }
+      },
+      "-40": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 0,
+          "min_ms": 30,
+          "median_ms": 30.0,
+          "max_ms": 30
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 220,
+          "median_ms": 220.0,
+          "max_ms": 220
+        }
+      },
+      "-45": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 0,
+          "min_ms": 30,
+          "median_ms": 30.0,
+          "max_ms": 30
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 220,
+          "median_ms": 220.0,
+          "max_ms": 220
+        }
+      }
+    },
+    "am_adam / commas": {
+      "-35": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 50,
+          "median_ms": 60.0,
+          "max_ms": 60
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 330,
+          "median_ms": 330.0,
+          "max_ms": 330
+        }
+      },
+      "-40": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 50,
+          "median_ms": 60.0,
+          "max_ms": 60
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 320,
+          "median_ms": 320.0,
+          "max_ms": 320
+        }
+      },
+      "-45": {
+        "before_K": {
+          "n": 10,
+          "with_gap": 2,
+          "min_ms": 40,
+          "median_ms": 40.0,
+          "max_ms": 50
+        },
+        "after_K": {
+          "n": 10,
+          "with_gap": 10,
+          "min_ms": 320,
+          "median_ms": 320.0,
+          "max_ms": 320
+        }
+      }
+    },
+    "all / bare": {
+      "-35": {
+        "before_K": {
+          "n": 40,
+          "with_gap": 0,
+          "min_ms": 10,
+          "median_ms": 25.0,
+          "max_ms": 40
+        },
+        "after_K": {
+          "n": 40,
+          "with_gap": 40,
+          "min_ms": 220,
+          "median_ms": 310.0,
+          "max_ms": 370
+        }
+      },
+      "-40": {
+        "before_K": {
+          "n": 40,
+          "with_gap": 0,
+          "min_ms": 10,
+          "median_ms": 20.0,
+          "max_ms": 30
+        },
+        "after_K": {
+          "n": 40,
+          "with_gap": 40,
+          "min_ms": 220,
+          "median_ms": 305.0,
+          "max_ms": 360
+        }
+      },
+      "-45": {
+        "before_K": {
+          "n": 40,
+          "with_gap": 0,
+          "min_ms": 0,
+          "median_ms": 15.0,
+          "max_ms": 30
+        },
+        "after_K": {
+          "n": 40,
+          "with_gap": 40,
+          "min_ms": 220,
+          "median_ms": 290.0,
+          "max_ms": 360
+        }
+      }
+    },
+    "all / commas": {
+      "-35": {
+        "before_K": {
+          "n": 40,
+          "with_gap": 40,
+          "min_ms": 50,
+          "median_ms": 125.0,
+          "max_ms": 310
+        },
+        "after_K": {
+          "n": 40,
+          "with_gap": 40,
+          "min_ms": 260,
+          "median_ms": 325.0,
+          "max_ms": 450
+        }
+      },
+      "-40": {
+        "before_K": {
+          "n": 40,
+          "with_gap": 40,
+          "min_ms": 50,
+          "median_ms": 110.0,
+          "max_ms": 300
+        },
+        "after_K": {
+          "n": 40,
+          "with_gap": 40,
+          "min_ms": 230,
+          "median_ms": 315.0,
+          "max_ms": 430
+        }
+      },
+      "-45": {
+        "before_K": {
+          "n": 40,
+          "with_gap": 32,
+          "min_ms": 40,
+          "median_ms": 85.0,
+          "max_ms": 300
+        },
+        "after_K": {
+          "n": 40,
+          "with_gap": 40,
+          "min_ms": 230,
+          "median_ms": 310.0,
+          "max_ms": 420
+        }
+      }
+    }
+  },
+  "takes_differ_in_length_across_seeds": {
+    "af_heart / bare": [
+      4.5
+    ],
+    "af_heart / commas": [
+      4.575
+    ],
+    "af_bella / bare": [
+      5.0
+    ],
+    "af_bella / commas": [
+      5.1
+    ],
+    "am_michael / bare": [
+      5.15
+    ],
+    "am_michael / commas": [
+      5.3
+    ],
+    "am_adam / bare": [
+      4.7
+    ],
+    "am_adam / commas": [
+      4.725
+    ]
+  },
+  "piece": {
+    "voice": "af_heart",
+    "seed": 1,
+    "chosen_by": "commas take whose before-K gap at -40 dB is nearest the median of ten (140 ms), lowest seed on a tie; bare take of the same seed"
+  },
+  "loudnorm": {
+    "raw_lufs": -25.76,
+    "raw_tp": -6.95,
+    "mode": "dynamic",
+    "target": "I=-16, TP=-1.5 (asked 0.5 dB under the house ceiling, for the AAC encode)"
+  },
+  "gaps_after_loudnorm_before_encode": {
+    "bare": {
+      "before_ms": 0,
+      "after_ms": 240,
+      "k_peak_s": 1.32
+    },
+    "commas": {
+      "before_ms": 110,
+      "after_ms": 230,
+      "k_peak_s": 1.49
+    },
+    "raw_takes": {
+      "bare": {
+        "before_ms": 10,
+        "after_ms": 260,
+        "k_peak_s": 1.32
+      },
+      "commas": {
+        "before_ms": 140,
+        "after_ms": 240,
+        "k_peak_s": 1.49
+      }
+    }
+  },
+  "measured_on_saved_file": {
+    "file": "two-commas.m4a",
+    "measured_on": "the m4a, decoded by ffmpeg",
+    "sample_rate_hz": 24000,
+    "channels": 1,
+    "length_sec": 11.389,
+    "encoder_lag_sec": 0.0,
+    "sample_peak_dbfs": -1.42,
+    "true_peak_dbtp": -1.4,
+    "integrated_lufs": -16.1,
+    "bare_half_lufs": -16.0,
+    "commas_half_lufs": -16.1,
+    "bare_at_sec": [
+      0.5,
+      5.0
+    ],
+    "commas_at_sec": [
+      6.2,
+      10.775
+    ],
+    "gaps_bare": {
+      "-35": {
+        "before_ms": 10,
+        "after_ms": 260,
+        "k_peak_s": 1.32
+      },
+      "-40": {
+        "before_ms": 0,
+        "after_ms": 240,
+        "k_peak_s": 1.32
+      },
+      "-45": {
+        "before_ms": 0,
+        "after_ms": 130,
+        "k_peak_s": 1.32
+      }
+    },
+    "gaps_commas": {
+      "-35": {
+        "before_ms": 140,
+        "after_ms": 240,
+        "k_peak_s": 1.49
+      },
+      "-40": {
+        "before_ms": 110,
+        "after_ms": 230,
+        "k_peak_s": 1.49
+      },
+      "-45": {
+        "before_ms": 110,
+        "after_ms": 120,
+        "k_peak_s": 1.49
+      }
+    }
+  },
+  "second_route_2026_05_26": {
+    "bare (2026-05-26, before the review)": {
+      "commit": "a94481f0",
+      "sec": 36.48,
+      "last_sentence_from_sec": 32.24,
+      "quiet_runs_50ms_in_first_2s_of_last_sentence": [
+        [
+          33.51,
+          33.66
+        ]
+      ],
+      "whisper_words": {
+        "constant": [
+          32.6,
+          33.08
+        ],
+        "k": [
+          33.08,
+          33.32
+        ],
+        "is": [
+          33.32,
+          33.76
+        ],
+        "phrasing": [
+          33.76,
+          34.16
+        ]
+      }
+    },
+    "commas (2026-05-26, after the review)": {
+      "commit": "36d1ae66",
+      "sec": 36.38,
+      "last_sentence_from_sec": 31.84,
+      "quiet_runs_50ms_in_first_2s_of_last_sentence": [
+        [
+          32.94,
+          33.16
+        ],
+        [
+          33.55,
+          33.69
+        ]
+      ]
+    }
+  },
+  "summary_for_picture": {
+    "bare_before": {
+      "n": 40,
+      "with_gap": 0,
+      "min_ms": 10,
+      "median_ms": 20.0,
+      "max_ms": 30
+    },
+    "commas_before": {
+      "n": 40,
+      "with_gap": 40,
+      "min_ms": 50,
+      "median_ms": 110.0,
+      "max_ms": 300
+    }
+  },
+  "sha256": {
+    "two-commas-picture.png": "2faf685325e51de0",
+    "two-commas-picture.svg": "3ceb8fee21209672",
+    "two-commas.m4a": "d2b150126b9072fa"
+  },
+  "heard_by": null
+}

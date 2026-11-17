@@ -1,0 +1,51 @@
+{
+ "base": "http://[::1]:5173",
+ "date": "2026-11-17T12:33:54.163Z",
+ "engines": {
+  "chromium": {
+   "version": "147.0.7727.15",
+   "webp_status": 200,
+   "webp_type": "image/webp",
+   "img_natural": [
+    1000,
+    380
+   ],
+   "img_distinct_screenshots_of_5": 5,
+   "video": {
+    "readyState": 4,
+    "currentTime": 0.8,
+    "error": null
+   }
+  },
+  "firefox": {
+   "version": "148.0.2",
+   "webp_status": 200,
+   "webp_type": "image/webp",
+   "img_natural": [
+    1000,
+    380
+   ],
+   "img_distinct_screenshots_of_5": 5,
+   "video": {
+    "readyState": 4,
+    "currentTime": 0.76,
+    "error": null
+   }
+  },
+  "webkit": {
+   "version": "26.4",
+   "webp_status": 200,
+   "webp_type": "image/webp",
+   "img_natural": [
+    1000,
+    380
+   ],
+   "img_distinct_screenshots_of_5": 5,
+   "video": {
+    "readyState": 4,
+    "currentTime": 0.8,
+    "error": null
+   }
+  }
+ }
+}

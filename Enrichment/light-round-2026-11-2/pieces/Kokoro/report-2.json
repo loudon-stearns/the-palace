@@ -1,0 +1,2696 @@
+{
+ "kokoro": "0.9.4",
+ "detector": "make.py's, at -40 dB, 50 ms",
+ "may": {
+  "bare": {
+   "commit": "a94481f0",
+   "git_sec": 36.475,
+   "rerender_sec": 36.475,
+   "lag_sec": 0.0,
+   "envelope_corr_linear_10ms": 0.9861,
+   "words_on_git_clock": {
+    "constant": [
+     32.675,
+     33.15
+    ],
+    "K": [
+     33.15,
+     33.6
+    ],
+    "is": [
+     33.6,
+     33.788
+    ]
+   },
+   "commas_planned": [],
+   "gaps_on_git_file": {
+    "before_ms": 0,
+    "after_ms": 150,
+    "quiet_runs_50ms_from_prev_to_next": [
+     [
+      33.52,
+      33.66
+     ]
+    ]
+   },
+   "measured_on": "the git file, the last sentence's stretch from 1 s before 'constant' to 1 s after 'is'"
+  },
+  "commas": {
+   "commit": "36d1ae66",
+   "git_sec": 36.375,
+   "rerender_sec": 36.375,
+   "lag_sec": 0.0,
+   "envelope_corr_linear_10ms": 0.9852,
+   "words_on_git_clock": {
+    "constant": [
+     32.275,
+     33.0
+    ],
+    "K": [
+     33.112,
+     33.55
+    ],
+    "is": [
+     33.65,
+     33.812
+    ]
+   },
+   "commas_planned": [
+    [
+     33.0,
+     33.112
+    ],
+    [
+     33.55,
+     33.65
+    ]
+   ],
+   "gaps_on_git_file": {
+    "before_ms": 210,
+    "after_ms": 100,
+    "quiet_runs_50ms_from_prev_to_next": [
+     [
+      32.95,
+      33.16
+     ],
+     [
+      33.59,
+      33.69
+     ]
+    ]
+   },
+   "measured_on": "the git file, the last sentence's stretch from 1 s before 'constant' to 1 s after 'is'"
+  }
+ },
+ "letters": [
+  {
+   "frame": "constant",
+   "letter": "K",
+   "kind": "voiceless stop",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 10,
+    "after_ms": 260,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 140,
+    "after_ms": 240,
+    "planned_comma_ms": [
+     75,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "K",
+   "kind": "voiceless stop",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 10,
+    "after_ms": 350,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 300,
+    "after_ms": 310,
+    "planned_comma_ms": [
+     113,
+     125
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "K",
+   "kind": "voiceless stop",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 30,
+    "after_ms": 360,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 80,
+    "after_ms": 430,
+    "planned_comma_ms": [
+     62,
+     163
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "K",
+   "kind": "voiceless stop",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 30,
+    "after_ms": 220,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 50,
+    "after_ms": 320,
+    "planned_comma_ms": [
+     50,
+     125
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "T",
+   "kind": "voiceless stop",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 290,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 40,
+    "after_ms": 340,
+    "planned_comma_ms": [
+     62,
+     138
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "T",
+   "kind": "voiceless stop",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 10,
+    "after_ms": 380,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 170,
+    "after_ms": 410,
+    "planned_comma_ms": [
+     113,
+     163
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "T",
+   "kind": "voiceless stop",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 30,
+    "after_ms": 390,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 40,
+    "after_ms": 440,
+    "planned_comma_ms": [
+     62,
+     163
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "T",
+   "kind": "voiceless stop",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 40,
+    "after_ms": 330,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 40,
+    "after_ms": 380,
+    "planned_comma_ms": [
+     50,
+     163
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "P",
+   "kind": "voiceless stop",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 290,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 130,
+    "after_ms": 320,
+    "planned_comma_ms": [
+     75,
+     125
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "P",
+   "kind": "voiceless stop",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 390,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 320,
+    "after_ms": 360,
+    "planned_comma_ms": [
+     112,
+     163
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "P",
+   "kind": "voiceless stop",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 50,
+    "after_ms": 380,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 90,
+    "after_ms": 420,
+    "planned_comma_ms": [
+     62,
+     163
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "P",
+   "kind": "voiceless stop",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 50,
+    "after_ms": 290,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 60,
+    "after_ms": 350,
+    "planned_comma_ms": [
+     50,
+     162
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "B",
+   "kind": "voiced stop",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 30,
+    "after_ms": 260,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 150,
+    "after_ms": 310,
+    "planned_comma_ms": [
+     75,
+     137
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "B",
+   "kind": "voiced stop",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 30,
+    "after_ms": 370,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 290,
+    "after_ms": 380,
+    "planned_comma_ms": [
+     113,
+     163
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "B",
+   "kind": "voiced stop",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 390,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 40,
+    "after_ms": 420,
+    "planned_comma_ms": [
+     87,
+     163
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "B",
+   "kind": "voiced stop",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 270,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 20,
+    "after_ms": 340,
+    "planned_comma_ms": [
+     50,
+     138
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "D",
+   "kind": "voiced stop",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 290,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 150,
+    "after_ms": 350,
+    "planned_comma_ms": [
+     75,
+     163
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "D",
+   "kind": "voiced stop",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 10,
+    "after_ms": 410,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 300,
+    "after_ms": 390,
+    "planned_comma_ms": [
+     113,
+     163
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "D",
+   "kind": "voiced stop",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 30,
+    "after_ms": 400,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 40,
+    "after_ms": 430,
+    "planned_comma_ms": [
+     62,
+     163
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "D",
+   "kind": "voiced stop",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 310,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 20,
+    "after_ms": 350,
+    "planned_comma_ms": [
+     50,
+     162
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "X",
+   "kind": "from a vowel",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 0,
+    "after_ms": 130,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 10,
+    "after_ms": 240,
+    "planned_comma_ms": [
+     50,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "X",
+   "kind": "from a vowel",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 0,
+    "after_ms": 290,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 210,
+    "after_ms": 310,
+    "planned_comma_ms": [
+     100,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "X",
+   "kind": "from a vowel",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 40,
+    "after_ms": 260,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 30,
+    "after_ms": 370,
+    "planned_comma_ms": [
+     50,
+     138
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "X",
+   "kind": "from a vowel",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 170,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 20,
+    "after_ms": 260,
+    "planned_comma_ms": [
+     50,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "N",
+   "kind": "from a vowel",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 50,
+    "after_ms": 140,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 80,
+    "after_ms": 260,
+    "planned_comma_ms": [
+     75,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "N",
+   "kind": "from a vowel",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 80,
+    "after_ms": 330,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 230,
+    "after_ms": 370,
+    "planned_comma_ms": [
+     100,
+     125
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "N",
+   "kind": "from a vowel",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 70,
+    "after_ms": 360,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 120,
+    "after_ms": 400,
+    "planned_comma_ms": [
+     87,
+     137
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "N",
+   "kind": "from a vowel",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 250,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 20,
+    "after_ms": 320,
+    "planned_comma_ms": [
+     50,
+     125
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "M",
+   "kind": "from a vowel",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 40,
+    "after_ms": 150,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 140,
+    "after_ms": 270,
+    "planned_comma_ms": [
+     75,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "M",
+   "kind": "from a vowel",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 50,
+    "after_ms": 340,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 320,
+    "after_ms": 340,
+    "planned_comma_ms": [
+     112,
+     112
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "M",
+   "kind": "from a vowel",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 80,
+    "after_ms": 340,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 150,
+    "after_ms": 410,
+    "planned_comma_ms": [
+     88,
+     138
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "M",
+   "kind": "from a vowel",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 180,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 60,
+    "after_ms": 310,
+    "planned_comma_ms": [
+     75,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "S",
+   "kind": "from a vowel",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 0,
+    "after_ms": 160,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 160,
+    "after_ms": 110,
+    "planned_comma_ms": [
+     75,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "S",
+   "kind": "from a vowel",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 10,
+    "after_ms": 310,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 350,
+    "after_ms": 260,
+    "planned_comma_ms": [
+     100,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "S",
+   "kind": "from a vowel",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 60,
+    "after_ms": 320,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 100,
+    "after_ms": 360,
+    "planned_comma_ms": [
+     75,
+     138
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "S",
+   "kind": "from a vowel",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 260,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 30,
+    "after_ms": 290,
+    "planned_comma_ms": [
+     50,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "F",
+   "kind": "from a vowel",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 0,
+    "after_ms": 110,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 220,
+    "after_ms": 120,
+    "planned_comma_ms": [
+     100,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "F",
+   "kind": "from a vowel",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 40,
+    "after_ms": 320,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 310,
+    "after_ms": 260,
+    "planned_comma_ms": [
+     113,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "F",
+   "kind": "from a vowel",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 60,
+    "after_ms": 320,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 150,
+    "after_ms": 380,
+    "planned_comma_ms": [
+     88,
+     137
+    ]
+   }
+  },
+  {
+   "frame": "constant",
+   "letter": "F",
+   "kind": "from a vowel",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 10,
+    "after_ms": 180,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 20,
+    "after_ms": 280,
+    "planned_comma_ms": [
+     50,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "K",
+   "kind": "voiceless stop",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 20,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 130,
+    "after_ms": 100,
+    "planned_comma_ms": [
+     75,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "K",
+   "kind": "voiceless stop",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 40,
+    "after_ms": 20,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 250,
+    "after_ms": 80,
+    "planned_comma_ms": [
+     100,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "K",
+   "kind": "voiceless stop",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 30,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 30,
+    "after_ms": 230,
+    "planned_comma_ms": [
+     50,
+     138
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "K",
+   "kind": "voiceless stop",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 40,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 40,
+    "after_ms": 60,
+    "planned_comma_ms": [
+     50,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "T",
+   "kind": "voiceless stop",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 30,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 40,
+    "after_ms": 200,
+    "planned_comma_ms": [
+     62,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "T",
+   "kind": "voiceless stop",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 40,
+    "after_ms": 30,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 140,
+    "after_ms": 220,
+    "planned_comma_ms": [
+     113,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "T",
+   "kind": "voiceless stop",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 30,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 30,
+    "after_ms": 240,
+    "planned_comma_ms": [
+     62,
+     137
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "T",
+   "kind": "voiceless stop",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 40,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 40,
+    "after_ms": 70,
+    "planned_comma_ms": [
+     62,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "P",
+   "kind": "voiceless stop",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 30,
+    "after_ms": 20,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 80,
+    "after_ms": 160,
+    "planned_comma_ms": [
+     75,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "P",
+   "kind": "voiceless stop",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 50,
+    "after_ms": 30,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 190,
+    "after_ms": 150,
+    "planned_comma_ms": [
+     100,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "P",
+   "kind": "voiceless stop",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 50,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 50,
+    "after_ms": 230,
+    "planned_comma_ms": [
+     62,
+     137
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "P",
+   "kind": "voiceless stop",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 40,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 60,
+    "after_ms": 80,
+    "planned_comma_ms": [
+     50,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "B",
+   "kind": "voiced stop",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 30,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 70,
+    "after_ms": 180,
+    "planned_comma_ms": [
+     75,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "B",
+   "kind": "voiced stop",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 30,
+    "after_ms": 20,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 100,
+    "after_ms": 240,
+    "planned_comma_ms": [
+     75,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "B",
+   "kind": "voiced stop",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 0,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 0,
+    "after_ms": 250,
+    "planned_comma_ms": [
+     62,
+     137
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "B",
+   "kind": "voiced stop",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 0,
+    "after_ms": 10,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 0,
+    "after_ms": 130,
+    "planned_comma_ms": [
+     50,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "D",
+   "kind": "voiced stop",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 30,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 20,
+    "after_ms": 220,
+    "planned_comma_ms": [
+     50,
+     125
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "D",
+   "kind": "voiced stop",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 30,
+    "after_ms": 30,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 30,
+    "after_ms": 270,
+    "planned_comma_ms": [
+     50,
+     125
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "D",
+   "kind": "voiced stop",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 0,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 0,
+    "after_ms": 250,
+    "planned_comma_ms": [
+     63,
+     137
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "D",
+   "kind": "voiced stop",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 10,
+    "after_ms": 10,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 10,
+    "after_ms": 90,
+    "planned_comma_ms": [
+     50,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "X",
+   "kind": "from a vowel",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 0,
+    "after_ms": 40,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 60,
+    "after_ms": 90,
+    "planned_comma_ms": [
+     75,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "X",
+   "kind": "from a vowel",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 40,
+    "after_ms": 40,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 160,
+    "after_ms": 90,
+    "planned_comma_ms": [
+     100,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "X",
+   "kind": "from a vowel",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 30,
+    "after_ms": 40,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 40,
+    "after_ms": 80,
+    "planned_comma_ms": [
+     75,
+     113
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "X",
+   "kind": "from a vowel",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 0,
+    "after_ms": 40,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 0,
+    "after_ms": 60,
+    "planned_comma_ms": [
+     50,
+     50
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "N",
+   "kind": "from a vowel",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 60,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 70,
+    "after_ms": 150,
+    "planned_comma_ms": [
+     75,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "N",
+   "kind": "from a vowel",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 60,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 180,
+    "after_ms": 110,
+    "planned_comma_ms": [
+     100,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "N",
+   "kind": "from a vowel",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 100,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 30,
+    "after_ms": 170,
+    "planned_comma_ms": [
+     75,
+     113
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "N",
+   "kind": "from a vowel",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 50,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 0,
+    "after_ms": 90,
+    "planned_comma_ms": [
+     50,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "M",
+   "kind": "from a vowel",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 50,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 0,
+    "after_ms": 200,
+    "planned_comma_ms": [
+     50,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "M",
+   "kind": "from a vowel",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 40,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 70,
+    "after_ms": 220,
+    "planned_comma_ms": [
+     75,
+     100
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "M",
+   "kind": "from a vowel",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 100,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 30,
+    "after_ms": 190,
+    "planned_comma_ms": [
+     62,
+     112
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "M",
+   "kind": "from a vowel",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 50,
+    "after_ms": 0,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 0,
+    "after_ms": 70,
+    "planned_comma_ms": [
+     50,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "S",
+   "kind": "from a vowel",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 0,
+    "after_ms": 40,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 90,
+    "after_ms": 90,
+    "planned_comma_ms": [
+     75,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "S",
+   "kind": "from a vowel",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 0,
+    "after_ms": 40,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 180,
+    "after_ms": 80,
+    "planned_comma_ms": [
+     100,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "S",
+   "kind": "from a vowel",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 60,
+    "after_ms": 60,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 0,
+    "after_ms": 130,
+    "planned_comma_ms": [
+     50,
+     138
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "S",
+   "kind": "from a vowel",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 10,
+    "after_ms": 50,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 0,
+    "after_ms": 70,
+    "planned_comma_ms": [
+     50,
+     50
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "F",
+   "kind": "from a vowel",
+   "voice": "af_heart",
+   "bare": {
+    "before_ms": 10,
+    "after_ms": 50,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 70,
+    "after_ms": 90,
+    "planned_comma_ms": [
+     75,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "F",
+   "kind": "from a vowel",
+   "voice": "af_bella",
+   "bare": {
+    "before_ms": 20,
+    "after_ms": 40,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 180,
+    "after_ms": 90,
+    "planned_comma_ms": [
+     100,
+     75
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "F",
+   "kind": "from a vowel",
+   "voice": "am_michael",
+   "bare": {
+    "before_ms": 80,
+    "after_ms": 50,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 70,
+    "after_ms": 120,
+    "planned_comma_ms": [
+     87,
+     112
+    ]
+   }
+  },
+  {
+   "frame": "value",
+   "letter": "F",
+   "kind": "from a vowel",
+   "voice": "am_adam",
+   "bare": {
+    "before_ms": 10,
+    "after_ms": 50,
+    "planned_comma_ms": []
+   },
+   "commas": {
+    "before_ms": 0,
+    "after_ms": 80,
+    "planned_comma_ms": [
+     50,
+     50
+    ]
+   }
+  }
+ ],
+ "letters_summary": {
+  "constant / K": {
+   "kind": "voiceless stop",
+   "voices": 4,
+   "bare_before_50": 0,
+   "commas_before_50": 4,
+   "commas_before_ms": [
+    140,
+    300,
+    80,
+    50
+   ],
+   "bare_before_ms": [
+    10,
+    10,
+    30,
+    30
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     260,
+     240
+    ],
+    [
+     350,
+     310
+    ],
+    [
+     360,
+     430
+    ],
+    [
+     220,
+     320
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     75,
+     100
+    ],
+    [
+     113,
+     125
+    ],
+    [
+     62,
+     163
+    ],
+    [
+     50,
+     125
+    ]
+   ]
+  },
+  "constant / T": {
+   "kind": "voiceless stop",
+   "voices": 4,
+   "bare_before_50": 0,
+   "commas_before_50": 1,
+   "commas_before_ms": [
+    40,
+    170,
+    40,
+    40
+   ],
+   "bare_before_ms": [
+    20,
+    10,
+    30,
+    40
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     290,
+     340
+    ],
+    [
+     380,
+     410
+    ],
+    [
+     390,
+     440
+    ],
+    [
+     330,
+     380
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     62,
+     138
+    ],
+    [
+     113,
+     163
+    ],
+    [
+     62,
+     163
+    ],
+    [
+     50,
+     163
+    ]
+   ]
+  },
+  "constant / P": {
+   "kind": "voiceless stop",
+   "voices": 4,
+   "bare_before_50": 2,
+   "commas_before_50": 4,
+   "commas_before_ms": [
+    130,
+    320,
+    90,
+    60
+   ],
+   "bare_before_ms": [
+    20,
+    20,
+    50,
+    50
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     290,
+     320
+    ],
+    [
+     390,
+     360
+    ],
+    [
+     380,
+     420
+    ],
+    [
+     290,
+     350
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     75,
+     125
+    ],
+    [
+     112,
+     163
+    ],
+    [
+     62,
+     163
+    ],
+    [
+     50,
+     162
+    ]
+   ]
+  },
+  "constant / B": {
+   "kind": "voiced stop",
+   "voices": 4,
+   "bare_before_50": 0,
+   "commas_before_50": 2,
+   "commas_before_ms": [
+    150,
+    290,
+    40,
+    20
+   ],
+   "bare_before_ms": [
+    30,
+    30,
+    20,
+    20
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     260,
+     310
+    ],
+    [
+     370,
+     380
+    ],
+    [
+     390,
+     420
+    ],
+    [
+     270,
+     340
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     75,
+     137
+    ],
+    [
+     113,
+     163
+    ],
+    [
+     87,
+     163
+    ],
+    [
+     50,
+     138
+    ]
+   ]
+  },
+  "constant / D": {
+   "kind": "voiced stop",
+   "voices": 4,
+   "bare_before_50": 0,
+   "commas_before_50": 2,
+   "commas_before_ms": [
+    150,
+    300,
+    40,
+    20
+   ],
+   "bare_before_ms": [
+    20,
+    10,
+    30,
+    20
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     290,
+     350
+    ],
+    [
+     410,
+     390
+    ],
+    [
+     400,
+     430
+    ],
+    [
+     310,
+     350
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     75,
+     163
+    ],
+    [
+     113,
+     163
+    ],
+    [
+     62,
+     163
+    ],
+    [
+     50,
+     162
+    ]
+   ]
+  },
+  "constant / X": {
+   "kind": "from a vowel",
+   "voices": 4,
+   "bare_before_50": 0,
+   "commas_before_50": 1,
+   "commas_before_ms": [
+    10,
+    210,
+    30,
+    20
+   ],
+   "bare_before_ms": [
+    0,
+    0,
+    40,
+    20
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     130,
+     240
+    ],
+    [
+     290,
+     310
+    ],
+    [
+     260,
+     370
+    ],
+    [
+     170,
+     260
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     50,
+     100
+    ],
+    [
+     100,
+     100
+    ],
+    [
+     50,
+     138
+    ],
+    [
+     50,
+     100
+    ]
+   ]
+  },
+  "constant / N": {
+   "kind": "from a vowel",
+   "voices": 4,
+   "bare_before_50": 3,
+   "commas_before_50": 3,
+   "commas_before_ms": [
+    80,
+    230,
+    120,
+    20
+   ],
+   "bare_before_ms": [
+    50,
+    80,
+    70,
+    20
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     140,
+     260
+    ],
+    [
+     330,
+     370
+    ],
+    [
+     360,
+     400
+    ],
+    [
+     250,
+     320
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     75,
+     100
+    ],
+    [
+     100,
+     125
+    ],
+    [
+     87,
+     137
+    ],
+    [
+     50,
+     125
+    ]
+   ]
+  },
+  "constant / M": {
+   "kind": "from a vowel",
+   "voices": 4,
+   "bare_before_50": 2,
+   "commas_before_50": 4,
+   "commas_before_ms": [
+    140,
+    320,
+    150,
+    60
+   ],
+   "bare_before_ms": [
+    40,
+    50,
+    80,
+    20
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     150,
+     270
+    ],
+    [
+     340,
+     340
+    ],
+    [
+     340,
+     410
+    ],
+    [
+     180,
+     310
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     75,
+     100
+    ],
+    [
+     112,
+     112
+    ],
+    [
+     88,
+     138
+    ],
+    [
+     75,
+     100
+    ]
+   ]
+  },
+  "constant / S": {
+   "kind": "from a vowel",
+   "voices": 4,
+   "bare_before_50": 1,
+   "commas_before_50": 3,
+   "commas_before_ms": [
+    160,
+    350,
+    100,
+    30
+   ],
+   "bare_before_ms": [
+    0,
+    10,
+    60,
+    20
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     160,
+     110
+    ],
+    [
+     310,
+     260
+    ],
+    [
+     320,
+     360
+    ],
+    [
+     260,
+     290
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     75,
+     75
+    ],
+    [
+     100,
+     100
+    ],
+    [
+     75,
+     138
+    ],
+    [
+     50,
+     100
+    ]
+   ]
+  },
+  "constant / F": {
+   "kind": "from a vowel",
+   "voices": 4,
+   "bare_before_50": 1,
+   "commas_before_50": 3,
+   "commas_before_ms": [
+    220,
+    310,
+    150,
+    20
+   ],
+   "bare_before_ms": [
+    0,
+    40,
+    60,
+    10
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     110,
+     120
+    ],
+    [
+     320,
+     260
+    ],
+    [
+     320,
+     380
+    ],
+    [
+     180,
+     280
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     100,
+     75
+    ],
+    [
+     113,
+     100
+    ],
+    [
+     88,
+     137
+    ],
+    [
+     50,
+     100
+    ]
+   ]
+  },
+  "value / K": {
+   "kind": "voiceless stop",
+   "voices": 4,
+   "bare_before_50": 0,
+   "commas_before_50": 2,
+   "commas_before_ms": [
+    130,
+    250,
+    30,
+    40
+   ],
+   "bare_before_ms": [
+    20,
+    40,
+    30,
+    40
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     20,
+     100
+    ],
+    [
+     20,
+     80
+    ],
+    [
+     0,
+     230
+    ],
+    [
+     0,
+     60
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     75,
+     75
+    ],
+    [
+     100,
+     75
+    ],
+    [
+     50,
+     138
+    ],
+    [
+     50,
+     75
+    ]
+   ]
+  },
+  "value / T": {
+   "kind": "voiceless stop",
+   "voices": 4,
+   "bare_before_50": 0,
+   "commas_before_50": 1,
+   "commas_before_ms": [
+    40,
+    140,
+    30,
+    40
+   ],
+   "bare_before_ms": [
+    20,
+    40,
+    30,
+    40
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     30,
+     200
+    ],
+    [
+     30,
+     220
+    ],
+    [
+     0,
+     240
+    ],
+    [
+     0,
+     70
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     62,
+     100
+    ],
+    [
+     113,
+     100
+    ],
+    [
+     62,
+     137
+    ],
+    [
+     62,
+     75
+    ]
+   ]
+  },
+  "value / P": {
+   "kind": "voiceless stop",
+   "voices": 4,
+   "bare_before_50": 2,
+   "commas_before_50": 4,
+   "commas_before_ms": [
+    80,
+    190,
+    50,
+    60
+   ],
+   "bare_before_ms": [
+    30,
+    50,
+    50,
+    40
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     20,
+     160
+    ],
+    [
+     30,
+     150
+    ],
+    [
+     0,
+     230
+    ],
+    [
+     0,
+     80
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     75,
+     100
+    ],
+    [
+     100,
+     100
+    ],
+    [
+     62,
+     137
+    ],
+    [
+     50,
+     75
+    ]
+   ]
+  },
+  "value / B": {
+   "kind": "voiced stop",
+   "voices": 4,
+   "bare_before_50": 0,
+   "commas_before_50": 2,
+   "commas_before_ms": [
+    70,
+    100,
+    0,
+    0
+   ],
+   "bare_before_ms": [
+    20,
+    30,
+    0,
+    0
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     30,
+     180
+    ],
+    [
+     20,
+     240
+    ],
+    [
+     0,
+     250
+    ],
+    [
+     10,
+     130
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     75,
+     100
+    ],
+    [
+     75,
+     100
+    ],
+    [
+     62,
+     137
+    ],
+    [
+     50,
+     75
+    ]
+   ]
+  },
+  "value / D": {
+   "kind": "voiced stop",
+   "voices": 4,
+   "bare_before_50": 0,
+   "commas_before_50": 0,
+   "commas_before_ms": [
+    20,
+    30,
+    0,
+    10
+   ],
+   "bare_before_ms": [
+    20,
+    30,
+    0,
+    10
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     30,
+     220
+    ],
+    [
+     30,
+     270
+    ],
+    [
+     0,
+     250
+    ],
+    [
+     10,
+     90
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     50,
+     125
+    ],
+    [
+     50,
+     125
+    ],
+    [
+     63,
+     137
+    ],
+    [
+     50,
+     75
+    ]
+   ]
+  },
+  "value / X": {
+   "kind": "from a vowel",
+   "voices": 4,
+   "bare_before_50": 0,
+   "commas_before_50": 2,
+   "commas_before_ms": [
+    60,
+    160,
+    40,
+    0
+   ],
+   "bare_before_ms": [
+    0,
+    40,
+    30,
+    0
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     40,
+     90
+    ],
+    [
+     40,
+     90
+    ],
+    [
+     40,
+     80
+    ],
+    [
+     40,
+     60
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     75,
+     75
+    ],
+    [
+     100,
+     75
+    ],
+    [
+     75,
+     113
+    ],
+    [
+     50,
+     50
+    ]
+   ]
+  },
+  "value / N": {
+   "kind": "from a vowel",
+   "voices": 4,
+   "bare_before_50": 4,
+   "commas_before_50": 2,
+   "commas_before_ms": [
+    70,
+    180,
+    30,
+    0
+   ],
+   "bare_before_ms": [
+    60,
+    60,
+    100,
+    50
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     0,
+     150
+    ],
+    [
+     0,
+     110
+    ],
+    [
+     0,
+     170
+    ],
+    [
+     0,
+     90
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     75,
+     100
+    ],
+    [
+     100,
+     75
+    ],
+    [
+     75,
+     113
+    ],
+    [
+     50,
+     75
+    ]
+   ]
+  },
+  "value / M": {
+   "kind": "from a vowel",
+   "voices": 4,
+   "bare_before_50": 3,
+   "commas_before_50": 1,
+   "commas_before_ms": [
+    0,
+    70,
+    30,
+    0
+   ],
+   "bare_before_ms": [
+    50,
+    40,
+    100,
+    50
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     0,
+     200
+    ],
+    [
+     0,
+     220
+    ],
+    [
+     0,
+     190
+    ],
+    [
+     0,
+     70
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     50,
+     100
+    ],
+    [
+     75,
+     100
+    ],
+    [
+     62,
+     112
+    ],
+    [
+     50,
+     75
+    ]
+   ]
+  },
+  "value / S": {
+   "kind": "from a vowel",
+   "voices": 4,
+   "bare_before_50": 1,
+   "commas_before_50": 2,
+   "commas_before_ms": [
+    90,
+    180,
+    0,
+    0
+   ],
+   "bare_before_ms": [
+    0,
+    0,
+    60,
+    10
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     40,
+     90
+    ],
+    [
+     40,
+     80
+    ],
+    [
+     60,
+     130
+    ],
+    [
+     50,
+     70
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     75,
+     75
+    ],
+    [
+     100,
+     75
+    ],
+    [
+     50,
+     138
+    ],
+    [
+     50,
+     50
+    ]
+   ]
+  },
+  "value / F": {
+   "kind": "from a vowel",
+   "voices": 4,
+   "bare_before_50": 1,
+   "commas_before_50": 3,
+   "commas_before_ms": [
+    70,
+    180,
+    70,
+    0
+   ],
+   "bare_before_ms": [
+    10,
+    20,
+    80,
+    10
+   ],
+   "after_ms_bare_to_commas": [
+    [
+     50,
+     90
+    ],
+    [
+     40,
+     90
+    ],
+    [
+     50,
+     120
+    ],
+    [
+     50,
+     80
+    ]
+   ],
+   "planned_comma_ms": [
+    [
+     75,
+     75
+    ],
+    [
+     100,
+     75
+    ],
+    [
+     87,
+     112
+    ],
+    [
+     50,
+     50
+    ]
+   ]
+  }
+ },
+ "picture_2": {
+  "drawn_from": "two-commas.m4a decoded, survey.json word timings for the piece's takes",
+  "voices_with_quiet_before_K": {
+   "commas": 4,
+   "bare": 0
+  }
+ }
+}

@@ -1,0 +1,49 @@
+{
+  "made_for": "the second light enrichment round: Marcus Aurelius",
+  "tier": "sketch",
+  "jobs": [
+    {
+      "name": "met-on-paper",
+      "page": "Marcus Aurelius",
+      "sentence": "He learned his Stoicism from a book — his tutor Rusticus handed him the *Discourses* of Epictetus, a former *slave*, and the emperor took a slave's philosophy as his own.",
+      "claim": "Why a book: Epictetus died around 135, in Greece, when Marcus was about fourteen and in Rome; Marcus turned to philosophy at twenty-five (146/147), about eleven years later, and came to know Epictetus through notes of his lectures lent by Rusticus (year not recorded). The Meditations were written later still, on campaign, inside the plague years and the northern war. 'From a book' is the page's; the why, and the two lives on one axis, are the maker's, every date from two sources in dates.json.",
+      "chain": [
+        "Drawn SVG",
+        "hand: make.py reads dates.json, refuses to draw any date with fewer than two sources, draws the two lifelines, the bands and the axis as SVG with soft ends for uncertain dates, and rasterises the PNG at 2x through headless Chrome"
+      ],
+      "seed": 0,
+      "run": "python3 make.py",
+      "outputs": [
+        "met-on-paper.svg",
+        "met-on-paper.png"
+      ],
+      "inputs": [
+        "dates.json",
+        "make.py"
+      ],
+      "heard_by": null
+    },
+    {
+      "name": "met-on-paper-2",
+      "page": "Marcus Aurelius",
+      "sentence": "He learned his Stoicism from a book — his tutor Rusticus handed him the *Discourses* of Epictetus, a former *slave*, and the emperor took a slave's philosophy as his own.",
+      "claim": "Why it was a book: Marcus was never Epictetus's pupil. For about fourteen years (121 to c. 135) both were alive, the boy in Rome, the teacher at Nicopolis in Greece, and the boy took up a philosopher's cloak at twelve within those years; what reached Marcus of Epictetus was notes of his lectures, lent by Rusticus, in a year no source gives. 'From a book' is the page's; the why and the two lines are the maker's, every date from two sources in dates-2.json.",
+      "chain": [
+        "Drawn SVG",
+        "hand: make2.py reads dates-2.json only, refuses a date with fewer than two sources or a label carrying its own digits, formats every printed number from the data, draws two lifelines and the undated path of the notes to Marcus's name, and rasterises the PNG at 2x through headless Chrome"
+      ],
+      "seed": 0,
+      "run": "python3 make2.py",
+      "outputs": [
+        "met-on-paper-2.svg",
+        "met-on-paper-2.png"
+      ],
+      "inputs": [
+        "dates-2.json",
+        "make2.py"
+      ],
+      "heard_by": null
+    }
+  ],
+  "notes": "The job met-on-paper-2 is the piece: placed on 2026-11-17 as a proposal in Marcus Aurelius's rich face, after a second verdict of keep and one fix it required. The job met-on-paper is the first version; its challenger sent it back (its \"turned to philosophy at 25\" does not hold as fact) and it is kept here, not placed. See challenge.md beside this file."
+}

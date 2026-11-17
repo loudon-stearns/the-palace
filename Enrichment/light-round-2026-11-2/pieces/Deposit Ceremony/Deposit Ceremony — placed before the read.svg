@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 575" width="1000" height="575" font-family="'JetBrains Mono','IBM Plex Mono',ui-monospace,Menlo,monospace">
+<rect width="1000" height="575" fill="#f0eee5"/>
+<text x="40.0" y="44.0" font-size="15" fill="#6a6862" text-anchor="start" font-weight="bold" font-style="normal">ONE DEPOSIT, FROM ITS COMMITS</text>
+<text x="40.0" y="72.0" font-size="21" fill="#1a1916" text-anchor="start" font-weight="bold" font-style="normal">Placed before they were read, the words waited on a branch, outside canon</text>
+<text x="40.0" y="104.0" font-size="16" fill="#3a3a35" text-anchor="start" font-weight="normal" font-style="normal">Of the 6 deposits under v2.8 and v2.9, this is the exception: 1 placed on a branch</text>
+<text x="40.0" y="126.0" font-size="16" fill="#3a3a35" text-anchor="start" font-weight="normal" font-style="normal">before its read. By their commits, 4 were read first. By the ledger's correction,</text>
+<text x="40.0" y="148.0" font-size="16" fill="#3a3a35" text-anchor="start" font-weight="normal" font-style="normal">1 landed on main before its words were read.</text>
+<text x="40.0" y="305.0" font-size="15" fill="#6a6862" text-anchor="start" font-weight="normal" font-style="normal">branch</text>
+<text x="40.0" y="435.0" font-size="15" fill="#6a6862" text-anchor="start" font-weight="normal" font-style="normal">main</text>
+<text x="40.0" y="455.0" font-size="13" fill="#6a6862" text-anchor="start" font-weight="normal" font-style="normal">(canon)</text>
+<line x1="93.2" y1="430.0" x2="470.0" y2="430.0" stroke="#6a6862" stroke-width="2"/>
+<line x1="790.0" y1="430.0" x2="972.0" y2="430.0" stroke="#6a6862" stroke-width="2"/>
+<path d="M101.2,430 C101.2,340 132.2,300 146.2,300" fill="none" stroke="#1a1916" stroke-width="2"/>
+<line x1="146.2" y1="300.0" x2="470.0" y2="300.0" stroke="#1a1916" stroke-width="2"/>
+<line x1="790.0" y1="300.0" x2="871.6" y2="300.0" stroke="#1a1916" stroke-width="2"/>
+<line x1="486.0" y1="300.0" x2="774.0" y2="300.0" stroke="#1a1916" stroke-width="2" stroke-dasharray="2 7"/>
+<line x1="471.0" y1="309.0" x2="481.0" y2="291.0" stroke="#6a6862" stroke-width="1.5"/>
+<line x1="471.0" y1="439.0" x2="481.0" y2="421.0" stroke="#6a6862" stroke-width="1.5"/>
+<line x1="779.0" y1="309.0" x2="789.0" y2="291.0" stroke="#6a6862" stroke-width="1.5"/>
+<line x1="779.0" y1="439.0" x2="789.0" y2="421.0" stroke="#6a6862" stroke-width="1.5"/>
+<line x1="146.2" y1="186.0" x2="146.2" y2="291.0" stroke="#b8b09a" stroke-width="1"/>
+<circle cx="146.2" cy="300" r="7" fill="#f0eee5" stroke="#1a1916" stroke-width="2.5"/>
+<text x="138.2" y="178.0" font-size="15" fill="#1a1916" text-anchor="start" font-weight="normal" font-style="normal">written: 239 lines</text>
+<text x="146.2" y="330.0" font-size="13" fill="#6a6862" text-anchor="middle" font-weight="normal" font-style="normal">08:48</text>
+<line x1="188.6" y1="211.0" x2="188.6" y2="291.0" stroke="#b8b09a" stroke-width="1"/>
+<circle cx="188.6" cy="300" r="7" fill="#f0eee5" stroke="#1a1916" stroke-width="2.5"/>
+<text x="180.6" y="203.0" font-size="15" fill="#1a1916" text-anchor="start" font-weight="normal" font-style="normal">3 factual fixes</text>
+<line x1="374.0" y1="236.0" x2="374.0" y2="291.0" stroke="#b8b09a" stroke-width="1"/>
+<circle cx="374.0" cy="300" r="7" fill="#f0eee5" stroke="#1a1916" stroke-width="2.5"/>
+<text x="366.0" y="228.0" font-size="15" fill="#1a1916" text-anchor="start" font-weight="normal" font-style="normal">cold read: 21 fixes</text>
+<text x="374.0" y="330.0" font-size="13" fill="#6a6862" text-anchor="middle" font-weight="normal" font-style="normal">08:58</text>
+<line x1="450.4" y1="261.0" x2="450.4" y2="291.0" stroke="#b8b09a" stroke-width="1"/>
+<circle cx="450.4" cy="300" r="7" fill="#f0eee5" stroke="#1a1916" stroke-width="2.5"/>
+<text x="442.4" y="253.0" font-size="15" fill="#1a1916" text-anchor="start" font-weight="normal" font-style="normal">second read: 6 fixes</text>
+<text x="450.4" y="330.0" font-size="13" fill="#6a6862" text-anchor="middle" font-weight="normal" font-style="normal">09:01</text>
+<text x="310.0" y="358.0" font-size="15" fill="#6a6862" text-anchor="middle" font-weight="normal" font-style="normal">4 Nov · 13 min 25 s, first to last</text>
+<text x="310.0" y="380.0" font-size="15" fill="#6a6862" text-anchor="middle" font-weight="normal" font-style="normal">verify state, each: unverified</text>
+<text x="630.0" y="342.0" font-size="18" fill="#1a1916" text-anchor="middle" font-weight="bold" font-style="normal">3 days 22 h</text>
+<text x="630.0" y="364.0" font-size="15" fill="#1a1916" text-anchor="middle" font-weight="normal" font-style="normal">on the branch, no new commit</text>
+<text x="630.0" y="390.0" font-size="15" fill="#3a3a35" text-anchor="middle" font-weight="normal" font-style="normal">When the words were put</text>
+<text x="630.0" y="409.0" font-size="15" fill="#3a3a35" text-anchor="middle" font-weight="normal" font-style="normal">in front of their reader</text>
+<text x="630.0" y="428.0" font-size="15" fill="#3a3a35" text-anchor="middle" font-weight="normal" font-style="normal">is not in the record.</text>
+<circle cx="871.6" cy="300" r="7" fill="#f0eee5" stroke="#1a1916" stroke-width="2.5"/>
+<line x1="871.6" y1="236.0" x2="871.6" y2="291.0" stroke="#b8b09a" stroke-width="1"/>
+<text x="970.0" y="228.0" font-size="15" fill="#1a1916" text-anchor="end" font-weight="normal" font-style="normal">1 fix: a repeat, cut on landing</text>
+<text x="867.6" y="330.0" font-size="13" fill="#6a6862" text-anchor="end" font-weight="normal" font-style="normal">07:52</text>
+<path d="M871.6,300 C875.6,360 881.8,370 881.8,430" fill="none" stroke="#c8261a" stroke-width="2.5"/>
+<circle cx="881.8" cy="430" r="8" fill="#c8261a"/>
+<text x="970.0" y="468.0" font-size="15" fill="#1a1916" text-anchor="end" font-weight="normal" font-style="normal">merged, 8 Nov 07:52, verify state: verified</text>
+<text x="970.0" y="498.0" font-size="15" fill="#c8261a" text-anchor="end" font-weight="normal" font-style="normal">the merge's message:</text>
+<text x="970.0" y="518.0" font-size="15" fill="#c8261a" text-anchor="end" font-weight="normal" font-style="normal">“read every word … (‘Read it, land it’)”</text>
+<text x="40.0" y="557.0" font-size="13" fill="#6a6862" text-anchor="start" font-weight="normal" font-style="normal">Source: git (merge f91572e2, five branch commits) and the tuning ledger. Commit times, not read times.</text>
+</svg>

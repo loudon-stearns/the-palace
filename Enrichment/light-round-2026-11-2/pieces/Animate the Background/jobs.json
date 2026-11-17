@@ -1,0 +1,43 @@
+{
+  "made_for": "the second light enrichment round: Animate the Background",
+  "tier": "sketch",
+  "jobs": [
+    {
+      "name": "tear-at-the-edge",
+      "page": "Animate the Background",
+      "sentence": "Skip this and a moving background tears at the figure's edge.",
+      "claim": "On BLUELINE shot 02, the project's own ink warp run with the infill step skipped drags a copy of the man's head out past his edge (up to 19 px in the 832 px frame, in 21 of the loop's 64 frames at the threshold used); the same warp over LaMa's plate leaves his edge clean to the eye. The claim is on the page; the mechanism is the project's (ink_flames.py: infill 'so the moving layer has no head to smear').",
+      "chain": [
+        "hand: ink_flames (BLUELINE's own warp, run from this folder by ink_flames_here.py, paths changed only), twice: over the plate and over the un-infilled shot",
+        "LaMa: the clean plate, rerun through Shop/LaMa's lama_fill.py on the rebuilt shot with the project's mask (feather > 100, 11 px dilation)",
+        "Drawn SVG: overlay.svg (labels, crop box, the ring), rasterised by Playwright's Chromium with a transparent ground",
+        "hand: make.py lays the two crops and the thumbnail under the overlay and writes the animated WebP (64 frames, 70 ms, the project's timing)"
+      ],
+      "seed": 0,
+      "run": "../../../../_tools/ComfyUI/venv/bin/python make.py all",
+      "outputs": [
+        "tear-at-the-edge.webp",
+        "tear-at-the-edge-still.png",
+        "overlay.svg",
+        "tear.json",
+        "sources.json",
+        "rebuild-check.json",
+        "lama-check.json"
+      ],
+      "inputs": [
+        "make.py",
+        "ink_flames_here.py",
+        "rasterize.mjs",
+        "project/ink_flames.py",
+        "project/smoke_physics.json",
+        "project/clean_plate.png",
+        "project/hero_mask_feather.png",
+        "project/fire_composite_drawing.png",
+        "project/ink_flames.mp4",
+        "project/07_ink_warp_alive.png"
+      ],
+      "heard_by": null
+    }
+  ],
+  "notes": "Placed on 2026-11-17 as a proposal in Animate the Background's rich face: the loop, with its peak frame held still beside it. Challenged once (remake the lines only), second verdict keep; the WebP never changed. The files under project/ are copies of BLUELINE's tracked files, used as inputs. See challenge.md beside this file."
+}
