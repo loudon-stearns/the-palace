@@ -58,7 +58,11 @@ function SignalCell({ row }) {
   );
 }
 
-const CEREMONY_COLS = 'minmax(180px, 2fr) 56px 90px 90px minmax(140px, 1.6fr) 90px';
+// The ledger column is a minmax, not `auto`: header and rows are separate
+// grids sharing this string, so a content-sized track would misalign them.
+// 220px holds "nothing owed · 10 waiting on you"; narrower, the waiting part
+// wraps to a second line inside the cell rather than overrunning the page.
+const CEREMONY_COLS = 'minmax(180px, 2fr) 56px 90px 90px minmax(140px, 1.6fr) minmax(130px, 220px)';
 
 // The project table is ONE grid; the header and every row are subgrids of it.
 // Each row used to be its own grid, so the trailing `auto` column (the advance
@@ -107,9 +111,9 @@ export function CeremonyRow({ row, onOpen, onOpenEntry, prefix = 'ceremony' }) {
       <span style={{ ...dim, overflow: 'hidden', textOverflow: 'ellipsis' }} title={row.last_run ? row.last_run.subject || '' : ''}>
         {row.last_run ? `${ageOf(row.last_run.ts)} · ${row.last_run.subject}` : 'no run recorded'}
       </span>
-      <span data-testid={`${prefix}-owed-${sid}`} style={{ ...dim, color: row.owed.length ? 'var(--warn)' : 'var(--phosphor-dim)', textShadow: row.owed.length ? 'var(--glow)' : 'none' }}>
-        {row.owed.length ? `${row.owed.length} owed` : 'nothing owed'}
-        {row.review && row.review.waiting ? <span data-testid={`${prefix}-waiting-${sid}`} style={{ color: 'var(--warn)', textShadow: 'var(--glow)' }}> · {row.review.waiting} waiting on you</span> : null}
+      <span data-testid={`${prefix}-owed-${sid}`} style={{ ...dim, display: 'flex', flexWrap: 'wrap', columnGap: '1ch', minWidth: 0, color: row.owed.length ? 'var(--warn)' : 'var(--phosphor-dim)', textShadow: row.owed.length ? 'var(--glow)' : 'none' }}>
+        <span>{row.owed.length ? `${row.owed.length} owed` : 'nothing owed'}</span>
+        {row.review && row.review.waiting ? <span data-testid={`${prefix}-waiting-${sid}`} style={{ color: 'var(--warn)', textShadow: 'var(--glow)' }}>· {row.review.waiting} waiting on you</span> : null}
       </span>
     </div>
   );
