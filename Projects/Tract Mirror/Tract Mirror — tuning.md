@@ -31,3 +31,8 @@ What Tract Mirror's steward cycles taught the page, and the changes to the house
 
 2. Nelder-Mead's first simplex steps only 0.00025 on a coefficient that starts at zero, so a uniform tube like schwa never moves; nudge every near-zero term before fitting. *(offered by the steward, cycle 2)*
 - run · 2026-11-17 · cycle 2 · taught item 2
+
+## From cycle 3 — 2026-11-17
+
+3. Hear with the instrument's own source inside the model: matching harmonic band energies to Tract Mirror's exact sung spectrum cancels the glottal pull that biases every formant picker, and recovers tube shape that three formants can't. *(offered by the steward, cycle 3)*
+- run · 2026-11-17 · cycle 3 · taught item 3

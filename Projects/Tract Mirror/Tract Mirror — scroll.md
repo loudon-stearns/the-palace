@@ -15,30 +15,31 @@ forward_vector: "I am Tract Mirror's scroll — the one page that always opens o
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-17T11:55:07.095Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-17T12:00:06.880Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 2 · last ran 2026-11-17 (today)
-- **Plan:** agreed 2026-09-25 (52 days ago) · 4 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 3 · last ran 2026-11-17 (today)
+- **Plan:** agreed 2026-09-25 (52 days ago) · 5 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-17 (today) — The refit vowels now sing within about 1% of their targets. After you listen, should they go into the plugin? (`tract-mirror-steward-006`)
-- **Last commit touching this project:** 2026-11-11 `f4b8708c` — edit(Objects to Think With): eighteen projects declare exemplifies → Objects to Think With (label object-to-think-with) from their own side, first in their links as the four already do, each with one body sentence naming the object and the idea it carries, grounded in the 2026-10-25 recount; on Loudon's ruling of 2026-11-11 that the links go in now, not at December's Weave
+- **Last shipped:** 2026-11-17 (today) — I can now hear my own vowels almost exactly, and recover the mouth shape too, by singing along with them, not picking formants. (`tract-mirror-steward-008`)
+- **Last commit touching this project:** 2026-11-17 `d17390cc` — steward(Tract Mirror): cycle 2 — SPINNING UP. HOME: [Tract Mirror](?deck=STATE&entry=Projects/Tract Mirr…
 - **Signal:** steady
+- **Left uncommitted:** ⚠ 1 file in the bundle that no cycle declared, so no cycle commits it — `Projects/Tract Mirror/listening/singalong-run.log`. Look, then commit or clear it.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-17 — cycle 2 · taught item 2
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-17 — cycle 3 · taught item 3
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 2, from cycle 2 — 2026-11-17 — [[Tract Mirror — tuning]]
+- **Latest lesson:** item 3, from cycle 3 — 2026-11-17 — [[Tract Mirror — tuning]]
 
 ### Where this stands
 
-Tract Mirror is the palace's first native plugin, a one-voice singing synth for Ableton. The 3D tubes on its screen are the filter itself. Each step in width between two cylinders is one reflection coefficient of an LPC lattice. The first build shipped in June. On 2026-11-05 I found that the six vowels sing flat, up to 14% low on the first formant. They were fitted with the small filter at the lips switched off, but every sound the instrument actually makes has it on. You chose to hear a refit, made in Python, before anything touches the plugin. This cycle made that refit and the before-and-after recordings.
+Tract Mirror is the palace's first native plugin: a one-voice singing synth for Ableton whose 3D tubes are the filter itself. The first build shipped in June. The plan's last move is to learn to speak by listening: sing into it and it sings back with your own mouth shape. Two things are open from earlier cycles. A refit of the six vowels (they sang up to 14% flat) is waiting for your ears before it goes into the plugin. And the listener's ear was weak: it heard the lowest formant 3–18% low. This cycle fixed the ear. It no longer guesses formants. It sings along, adjusting a tube until Tract Mirror's own exact spectrum matches what it heard. On my own vowels that is now within a fraction of…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Nobody has heard the refit yet, me included: it's tuned to the numbers, not to an ear. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** Nobody has heard the refit yet, me included: it's tuned to the numbers, not to an ear. _(in 3 notes, the latest cycle 3)_
 - **rough since cycle 1:** Wiring it in also means recomputing the plugin's vowel loudness matching, which was built from the old shapes. _(in 2 notes, the latest cycle 2)_
 
 ### Open asks
@@ -55,6 +56,7 @@ _None._
 
 ### Runs
 
+- 2026-11-17 — cycle 3 · taught item 3
 - 2026-11-17 — cycle 2 · taught item 2
 - 2026-11-05 — cycle 1 · taught item 1
 
@@ -88,6 +90,59 @@ Decided by Loudon on 2026-06-09, carried over from the build plan's locked decis
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="tract-mirror-steward-008" -->
+### 2026-11-17 — cycle 3 — I can now hear my own vowels almost exactly, and recover the mouth shape too, by singing along with them, not picking formants.
+> shipped · listening ear fixed on my own voice, untested on yours · steward leans record-Loudon-next
+
+**First I tried better formant pickers, and they made it worse.** One was envelope LPC, the other a small lattice fitted to the tops of the harmonics. Both heard F1 further off than plain LPC (ear-errors.png). That told me where the error lives. The tube's own F1 peak sits on its pole to within 1%. The pull comes from the glottal pulse, and no picker that ignores the source can undo it.
+
+**So the ear sings along.** For a candidate tube I compute exactly what Tract Mirror would sing at the heard pitch: the same pulse, the same as-sung tube (lip filter on), the same lip radiation. That model matches a real render to within 0.06–0.2 dB. Then I reshape the tube until its harmonics match the heard ones in level. The source is inside the model, so its pull cancels. The ear still isn't told the vowel.
+
+**On twelve tubes of known shape at four pitches** (the six vowels now, the six refit ones): mean F1 error is 0.1% at G2 and D3, 0.4% at A3, 3.1% at E4. The plain ear was at 14%, 7%, 9% and 17%. F2 and F3 come within 0.6% everywhere. The two misses are /u/ and /i/ at E4. Their F1 (about 250 Hz) sits below the 330 Hz note, so no harmonic ever touches it. That one is physics, not a bug.
+
+**The bigger find: it gets the mouth back.** Three formants can't tell two tubes apart: cycle 1's fitted /e/ was 11.9 dB away in shape and sang the same. Twenty-odd harmonic levels can. Mean shape error is under 1 dB at the low pitches and about 4 dB at E4. That is the 'same formants, different tube' problem largely answered for a low voice.
+
+**Where it fails.** On the two macOS voices it lands nowhere sensible (Samantha's /a/ comes back with F1 at 96 Hz). Those clips are a quarter second of steady sound with speech-gliding pitch, and the pitch finder reads Daniel at 364 Hz. So they test the pitch finder more than the ear. A held, sung vowel is the input this needs.
+
+**I also drafted the sing-in, sing-back design** from all three probes: one 'listen' button, the 3D tube morphing toward your shape while it fits, and the result as a user slot on the vowel pad. It's a workshop draft, not an entry.
+
+**Passed over:** importing a pro formant tracker (Praat-style). It would still pick formants and inherit the source pull. Singing along uses the instrument itself as the ear, which is the mirror thesis turned around.
+
+**Artifacts:**
+- [Start here: grey is the ear now, amber is the sing-along ear, on 12 tubes at four pitches. Amber sits on zero except two high-voice /u/ and /i/.](Projects/Tract Mirror/listening/singalong-errors.png)
+- [The sing-along ear: exact harmonic spectrum of a tube at the heard pitch, fitted to what was heard.](Projects/Tract Mirror/listening/singalong.py)
+- [Every fit: formants as sung back, shape error, spectral fit, and the two macOS voices.](Projects/Tract Mirror/listening/singalong-results.json)
+- [Daniel and Samantha: their vowel, the old ear's sing-back, the sing-along sing-back. Shows the failure on gliding speech, honestly (stays on this Mac).](Projects/Tract Mirror/listening/singalong-replay.wav)
+- [The first try: two better formant pickers, measured against plain LPC.](Projects/Tract Mirror/listening/ear.py)
+- [Why pickers weren't the answer: both new pickers miss F1 worse than plain LPC.](Projects/Tract Mirror/listening/ear-errors.png)
+- [The picker numbers, per tube and pitch.](Projects/Tract Mirror/listening/ear-results.json)
+- [At A3: each vowel, then what the plain ear and the lattice-picker ear sing back (stays on this Mac).](Projects/Tract Mirror/listening/ear-singback.wav)
+- [A first design for sing-in, sing-back, built on what the probes measured.](Projects/Tract Mirror/listening/sing-back design — draft.md)
+
+_Mean error hearing F1, 12 tubes of known shape (%), and how far the recovered tube's shape is off (dB)_
+| pitch | ear now (plain LPC) F1 | sing-along F1 | sing-along worst F1 | sing-along shape off |
+| --- | --- | --- | --- | --- |
+| G2 98 Hz | 14.0 | 0.1 | 0.1 | 0.98 dB |
+| D3 147 Hz | 7.1 | 0.1 | 0.2 | 0.85 dB |
+| A3 220 Hz | 9.2 | 0.4 | 1.9 | 2.04 dB |
+| E4 330 Hz | 17.1 | 3.1 | 17.1 (/u/, F1 below the note) | 3.95 dB |
+
+_Changed in the workshop:_ README — Added the second pass on the ear: pickers failed, singing along works, the high-voice limit, the macOS-voice caveat.
+_Changed in the workshop:_ sing-back design — draft — New workshop draft: the first design for the listening version, from what the probes measured.
+
+_Left rough:_ Nobody has heard the refit yet, me included: it's tuned to the numbers, not to an ear. The new ear is proven only on my own voice; it fails on the two macOS clips, and nobody has sung into it yet.
+
+_Next moves named:_ Hear a real held vowel: a recording of Loudon singing a-e-i-o-u at a comfortable pitch and one higher is the test the ear needs next (any phone recording dropped in listening/voices/ will do). · Make the fit plugin-sized: one start from the nearest vowel and an analytic gradient, to get from about 40 seconds toward a few. · If you say wire it in on the refit question: replace the vowel file, redo vowel loudness, rebuild, rerun the checks.
+<sub>`tract-mirror-steward-008` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-98cbc97c3d" -->
+### 2026-11-17 — cycle 3
+
+taught item 3
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="tract-mirror-steward-006" -->
 ### 2026-11-17 — cycle 2 — The refit vowels now sing within about 1% of their targets. After you listen, should they go into the plugin?
 > still working · refit rendered, plugin untouched · steward leans WIRE-IN
