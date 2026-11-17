@@ -15,28 +15,35 @@ forward_vector: "I am Tract Mirror's scroll — the one page that always opens o
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-05T16:14:43.591Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-17T11:55:07.095Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 1 · last ran 2026-11-05 (today)
-- **Plan:** agreed 2026-09-25 (41 days ago) · 2 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 2 · last ran 2026-11-17 (today)
+- **Plan:** agreed 2026-09-25 (52 days ago) · 4 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-05 (today) — My vowels sing up to 14% flat of their targets. Should I refit them, and if so, audition before touching the plugin? (`tract-mirror-steward-003`)
-- **Last commit touching this project:** 2026-11-03 `a027a3f7` — edit(Loudon Live Design System): the browser's furniture fan-out, batch 3 of 5: Projects, Q to Z (94 pages)
+- **Last shipped:** 2026-11-17 (today) — The refit vowels now sing within about 1% of their targets. After you listen, should they go into the plugin? (`tract-mirror-steward-006`)
+- **Last commit touching this project:** 2026-11-11 `f4b8708c` — edit(Objects to Think With): eighteen projects declare exemplifies → Objects to Think With (label object-to-think-with) from their own side, first in their links as the four already do, each with one body sentence naming the object and the idea it carries, grounded in the 2026-10-25 recount; on Loudon's ruling of 2026-11-11 that the links go in now, not at December's Weave
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-05 — cycle 1 · taught item 1
+- **Runs:** 2 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-17 — cycle 2 · taught item 2
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 1, from cycle 1 — 2026-11-05 — [[Tract Mirror — tuning]]
+- **Latest lesson:** item 2, from cycle 2 — 2026-11-17 — [[Tract Mirror — tuning]]
 
 ### Where this stands
 
-Tract Mirror is the palace's first native plugin, a one-voice singing synth for Ableton. The 3D tubes on its screen are the filter itself: each step in width between two cylinders is one reflection coefficient of an LPC lattice. The first build is done. The Python reference, the C++ plugin, the WebView screen, validation, a verified load in Live 12 on 2026-06-10, MIDI controls, loudness matching and Word mode all shipped in June. The plan has two steps left. The first is playing the newest controls inside Live, which waits on you at the machine. The second is learning to speak by listening, so that you sing into it and it sings back with your tract shape. That step had no design until now.…
+Tract Mirror is the palace's first native plugin, a one-voice singing synth for Ableton. The 3D tubes on its screen are the filter itself. Each step in width between two cylinders is one reflection coefficient of an LPC lattice. The first build shipped in June. On 2026-11-05 I found that the six vowels sing flat, up to 14% low on the first formant. They were fitted with the small filter at the lips switched off, but every sound the instrument actually makes has it on. You chose to hear a refit, made in Python, before anything touches the plugin. This cycle made that refit and the before-and-after recordings.
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 1:** Nobody has heard the refit yet, me included: it's tuned to the numbers, not to an ear. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** Wiring it in also means recomputing the plugin's vowel loudness matching, which was built from the old shapes. _(in 2 notes, the latest cycle 2)_
 
 ### Open asks
 
-- `tract-mirror-steward-003` — directional_decision · posted 2026-11-05 · options: AUDITION-REFIT · KEEP-AS-IS · REFIT-NOW
+- `tract-mirror-steward-006` — directional_decision · posted 2026-11-17 · options: WIRE-IN · KEEP-AS-IS · ADJUST
 
 ### Answered, not yet consumed
 
@@ -44,10 +51,11 @@ _None._
 
 ### Decided
 
-_Nothing decided on the board yet._
+- `tract-mirror-steward-003` — directional_decision → GRANTED — option_id=AUDITION-REFIT (2026-11-10)
 
 ### Runs
 
+- 2026-11-17 — cycle 2 · taught item 2
 - 2026-11-05 — cycle 1 · taught item 1
 
 ### Owed
@@ -80,6 +88,75 @@ Decided by Loudon on 2026-06-09, carried over from the build plan's locked decis
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="tract-mirror-steward-006" -->
+### 2026-11-17 — cycle 2 — The refit vowels now sing within about 1% of their targets. After you listen, should they go into the plugin?
+> still working · refit rendered, plugin untouched · steward leans WIRE-IN
+
+Tract Mirror is the singing-tube plugin. Its six vowels sang up to 14% flat, because they were fitted with the lip filter off and the filter is always on in what you hear. You asked to hear a refit before anything touched the plugin. It's ready. In audition-six-vowels-old-then-new.wav each vowel plays as it is now, then refit. /e/ and /u/ change most. The tubes barely moved: mostly the lips opened a little (tubes-old-new.png). Wiring it in means replacing the vowel file, recomputing loudness, rebuilding and rerunning the checks: about one cycle, and easy to undo with git. I'm going on with the listening design meanwhile, so answer whenever it suits you.
+
+**Artifacts:**
+- [each vowel now, then refit.](Projects/Tract Mirror/refit/audition-six-vowels-old-then-new.wav)
+- [a-e-i-o-u glide, now, then refit.](Projects/Tract Mirror/refit/audition-morph-old-then-new.wav)
+- [the tubes now and refit.](Projects/Tract Mirror/refit/tubes-old-new.png)
+- [tubes-heard.png](Projects/Tract Mirror/listening/tubes-heard.png)
+- [replay-other-voices.wav](Projects/Tract Mirror/listening/replay-other-voices.wav)
+- [replay-reference-vowels.wav](Projects/Tract Mirror/listening/replay-reference-vowels.wav)
+- [Samantha_u.wav](Projects/Tract Mirror/listening/voices/Samantha_u.wav)
+- [Samantha_i.wav](Projects/Tract Mirror/listening/voices/Samantha_i.wav)
+- [Samantha_a.wav](Projects/Tract Mirror/listening/voices/Samantha_a.wav)
+- [Daniel_u.wav](Projects/Tract Mirror/listening/voices/Daniel_u.wav)
+- [Daniel_i.wav](Projects/Tract Mirror/listening/voices/Daniel_i.wav)
+- [Daniel_a.wav](Projects/Tract Mirror/listening/voices/Daniel_a.wav)
+<sub>`tract-mirror-steward-006` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="tract-mirror-steward-005" -->
+### 2026-11-17 — cycle 2 — All six vowels refit to sing on their targets with the lip filter on: worst error goes from 14% flat to 1.2%. Python only, ready for your ears.
+> shipped · plugin untouched · steward leans WIRE-IN after you listen
+
+**What I did.** I refit each vowel's 64-point tube so that its formants, measured with the lip filter on (the exact model of what the speaker plays), meet the same Peterson–Barney targets as before. Each fit starts from the current tube and is pulled back toward it. Three formants don't decide a tube, so the current shape stands in for 'what this mouth looks like'. Each vowel moves a little and doesn't become a different mouth. It passes at both 44.1k and 48k.
+
+**What changed in the tubes.** Mostly the lips. They open a little on /e i u/ and schwa (/e/ from 1.7 to 2.8 cm²). That is the physical answer: the lip filter lowers F1, and opening the lips raises it again. Measured as a difference in overall shape, each tube moved only 0.6–1.0 dB.
+
+**Checked twice.** The fit gates on the eigenvalue model. As a separate check, I took the spectral peaks of each refit tube's rendered impulse response with the lip filter on. They land within 1–2% of the model (check-ir.json).
+
+**Listen.** audition-six-vowels-old-then-new.wav plays each vowel now, then refit, at 110 Hz. You'll hear /e/ and /u/ change most. audition-morph-old-then-new.wav glides a-e-i-o-u twice, now and then refit.
+
+**Passed over:** refitting from the old mouth sketches with no pull toward the current tubes. It also hits the targets, but the listening probe showed it can find a very different tube for the same vowel (11.9 dB apart for /e/), and the 3D screen would change shape under you.
+
+**Artifacts:**
+- [each vowel now, then refit, at 110 Hz: a, e, i, o, u, schwa.](Projects/Tract Mirror/refit/audition-six-vowels-old-then-new.wav)
+- [a-e-i-o-u glide, now, then refit.](Projects/Tract Mirror/refit/audition-morph-old-then-new.wav)
+- [the six tubes now (grey) and refit (orange): mostly the lips open.](Projects/Tract Mirror/refit/tubes-old-new.png)
+- [the refit: as-sung formants, pulled back toward the current tube, gated at 44.1k and 48k.](Projects/Tract Mirror/refit/refit.py)
+- [the refit tubes, same shape as reference/vowels.json. Not wired in.](Projects/Tract Mirror/refit/vowels-refit.json)
+- [formants before and after, gate, how far each shape moved.](Projects/Tract Mirror/refit/refit-results.json)
+- [separate check from the rendered impulse response's spectral peaks.](Projects/Tract Mirror/refit/check_ir.py)
+- [that check's numbers: within 1–2% of the model.](Projects/Tract Mirror/refit/check-ir.json)
+
+_Error on the lowest three formants as sung (lip filter on), against Peterson–Barney targets, %_
+| vowel | now F1 / F2 / F3 | refit F1 / F2 / F3 | shape moved (dB) |
+| --- | --- | --- | --- |
+| a | −3.0 / −6.7 / −4.1 | +0.3 / −1.2 / −0.7 | 1.02 |
+| e | −13.6 / −1.9 / −2.8 | −0.7 / −0.1 / −0.1 | 1.01 |
+| i | −8.0 / −1.6 / −3.2 | −0.4 / −0.2 / −0.2 | 0.83 |
+| o | −2.0 / −2.3 / −0.8 | −0.3 / −0.1 / +0.2 | 0.61 |
+| u | −11.9 / −3.1 / −1.3 | −0.8 / 0.0 / +0.1 | 0.83 |
+| schwa | −6.2 / −5.5 / −4.5 | −0.3 / −0.3 / −0.3 | 0.85 |
+
+_Left rough:_ Nobody has heard the refit yet, me included: it's tuned to the numbers, not to an ear. Wiring it in also means recomputing the plugin's vowel loudness matching, which was built from the old shapes.
+
+_Next moves named:_ If you say wire it in: copy vowels-refit.json over reference/vowels.json, redo the plugin's vowel-loudness table, rebuild, and rerun the render, loudness, MIDI and Word checks. · Meanwhile, the next part of the plan, learning to speak by listening: a first design for sing-in, sing-back, built on what the listening probe found.
+<sub>`tract-mirror-steward-005` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-94f25dd1a9" -->
+### 2026-11-17 — cycle 2
+
+taught item 2
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="tract-mirror-steward-003" -->
 ### 2026-11-05 — cycle 1 — My vowels sing up to 14% flat of their targets. Should I refit them, and if so, audition before touching the plugin?
 > still working · flat vowels found by listening, not fixed · steward leans AUDITION-REFIT

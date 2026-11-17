@@ -26,3 +26,8 @@ What Tract Mirror's steward cycles taught the page, and the changes to the house
 
 1. Gate on the audio path, not the analysis path. The lip lowpass is on whenever Tract Mirror sings, and switching it off for measurement made every formant gate check a tube the speaker never plays (up to 14% sharp on paper). *(offered by the steward, cycle 1)*
 - run · 2026-11-05 · cycle 1 · taught item 1
+
+## From cycle 2 — 2026-11-17
+
+2. Nelder-Mead's first simplex steps only 0.00025 on a coefficient that starts at zero, so a uniform tube like schwa never moves; nudge every near-zero term before fitting. *(offered by the steward, cycle 2)*
+- run · 2026-11-17 · cycle 2 · taught item 2
