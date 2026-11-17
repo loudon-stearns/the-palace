@@ -111,9 +111,13 @@ export function CeremonyRow({ row, onOpen, onOpenEntry, prefix = 'ceremony' }) {
       <span style={{ ...dim, overflow: 'hidden', textOverflow: 'ellipsis' }} title={row.last_run ? row.last_run.subject || '' : ''}>
         {row.last_run ? `${ageOf(row.last_run.ts)} · ${row.last_run.subject}` : 'no run recorded'}
       </span>
-      <span data-testid={`${prefix}-owed-${sid}`} style={{ ...dim, display: 'flex', flexWrap: 'wrap', columnGap: '1ch', minWidth: 0, color: row.owed.length ? 'var(--warn)' : 'var(--phosphor-dim)', textShadow: row.owed.length ? 'var(--glow)' : 'none' }}>
-        <span>{row.owed.length ? `${row.owed.length} owed` : 'nothing owed'}</span>
-        {row.review && row.review.waiting ? <span data-testid={`${prefix}-waiting-${sid}`} style={{ color: 'var(--warn)', textShadow: 'var(--glow)' }}>· {row.review.waiting} waiting on you</span> : null}
+      {/* The owed part holds 12ch, the width of "nothing owed", so the
+          "· N waiting on you" counts start at one x on every row. The space
+          before the dot is real text (white-space: pre keeps it as a flex
+          item's leading space), so copying the cell reads "owed · N". */}
+      <span data-testid={`${prefix}-owed-${sid}`} style={{ ...dim, display: 'flex', flexWrap: 'wrap', minWidth: 0, color: row.owed.length ? 'var(--warn)' : 'var(--phosphor-dim)', textShadow: row.owed.length ? 'var(--glow)' : 'none' }}>
+        <span style={{ minWidth: '12ch' }}>{row.owed.length ? `${row.owed.length} owed` : 'nothing owed'}</span>
+        {row.review && row.review.waiting ? <span data-testid={`${prefix}-waiting-${sid}`} style={{ color: 'var(--warn)', textShadow: 'var(--glow)', whiteSpace: 'pre' }}>{` · ${row.review.waiting} waiting on you`}</span> : null}
       </span>
     </div>
   );
